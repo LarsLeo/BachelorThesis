@@ -6,8 +6,6 @@
 
 using namespace omnetpp;
 
-namespace sality {
-
 class Superpeer : public cSimpleModule {
 protected:
     int sequenceNumber = 0;
@@ -29,8 +27,6 @@ protected:
     void probeNeighbours();
     void handleURLPackMessage(Url_pack *msg);
     void handleNLRequestMessage();
-};
-
 };
 
 #endif

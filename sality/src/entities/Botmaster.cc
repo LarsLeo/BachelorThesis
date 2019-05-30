@@ -1,7 +1,5 @@
 #include "Botmaster.h"
 
-namespace sality {
-
 Define_Module(Botmaster);
 
 // This is the botmaster as a superpeer, it will periodically increase its own
@@ -26,5 +24,4 @@ void Botmaster::handleMessage(cMessage *msg) {
     } else {
         Superpeer::handleMessage(msg);
     }
-}
 }

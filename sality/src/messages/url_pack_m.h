@@ -5,8 +5,8 @@
 #if defined(__clang__)
 #  pragma clang diagnostic ignored "-Wreserved-id-macro"
 #endif
-#ifndef __BACHELOR_THESIS_SALITY_URL_PACK_M_H
-#define __BACHELOR_THESIS_SALITY_URL_PACK_M_H
+#ifndef __URL_PACK_M_H
+#define __URL_PACK_M_H
 
 #include <omnetpp.h>
 
@@ -17,10 +17,9 @@
 #endif
 
 
-namespace sality {
 
 /**
- * Class generated from <tt>messages/url_pack.msg:3</tt> by nedtool.
+ * Class generated from <tt>messages/url_pack.msg:1</tt> by nedtool.
  * <pre>
  * message Url_pack
  * {
@@ -57,7 +56,6 @@ class Url_pack : public ::omnetpp::cMessage
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const Url_pack& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, Url_pack& obj) {obj.parsimUnpack(b);}
 
-}
 
-#endif // ifndef __BACHELOR_THESIS_SALITY_URL_PACK_M_H
+#endif // ifndef __URL_PACK_M_H
 

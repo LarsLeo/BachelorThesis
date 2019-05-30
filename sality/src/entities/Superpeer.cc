@@ -1,7 +1,6 @@
 #include "Superpeer.h"
 #include "../messages/url_pack_m.h"
 
-namespace sality {
 
 Define_Module(Superpeer);
 
@@ -73,4 +72,3 @@ void Superpeer::probeNeighbours() {
     cMessage *neighbourProbeInit = new cMessage(nlProbeMessage);
     scheduleAt(simTime() + membershipManagementDelay, neighbourProbeInit);
 }
-};

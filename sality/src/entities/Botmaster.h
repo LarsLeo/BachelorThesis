@@ -3,8 +3,6 @@
 
 #include "Superpeer.h"
 
-namespace sality {
-
 class Botmaster : public Superpeer {
 protected:
     void initialize() override;
@@ -16,7 +14,5 @@ private:
 
     void scheduleNextURLPack();
 };
-
-}
 
 #endif

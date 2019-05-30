@@ -148,7 +148,6 @@ void doParsimUnpacking(omnetpp::cCommBuffer *, T& t)
 
 }  // namespace omnetpp
 
-namespace sality {
 
 // forward
 template<typename T, typename A>
@@ -259,7 +258,7 @@ class Url_packDescriptor : public omnetpp::cClassDescriptor
 
 Register_ClassDescriptor(Url_packDescriptor)
 
-Url_packDescriptor::Url_packDescriptor() : omnetpp::cClassDescriptor("bachelor_thesis_sality::Url_pack", "omnetpp::cMessage")
+Url_packDescriptor::Url_packDescriptor() : omnetpp::cClassDescriptor("Url_pack", "omnetpp::cMessage")
 {
     propertynames = nullptr;
 }
@@ -458,5 +457,4 @@ void *Url_packDescriptor::getFieldStructValuePointer(void *object, int field, in
     }
 }
 
-}
 
