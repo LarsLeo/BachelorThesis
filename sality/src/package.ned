@@ -1,0 +1,3 @@
+package sality;
+
+@license(LGPL);
