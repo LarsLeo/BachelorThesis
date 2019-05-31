@@ -1,0 +1,11 @@
+#include "BaseCrawler.h"
+
+Define_Module(BaseCrawler);
+
+void Superpeer::initialize()
+{
+}
+
+void Superpeer::handleMessage(cMessage *msg)
+{
+}

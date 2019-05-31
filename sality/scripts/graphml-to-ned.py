@@ -48,10 +48,10 @@ def createBotmasters(peers, botmasters, n):
         botmasters.append(peers.pop(numNodes - (i * modVal - 1)))
 
 def writePreamble(nedFile, peers, botmasters, cv):
-    preamble = "package bachelor_thesis_sality.ned_files;\n\n" + \
-        "import bachelor_thesis_sality.ned_files.Superpeer;\n" + \
-        "import bachelor_thesis_sality.ned_files.CrawlerV%d;\n" %(cv) + \
-        "import bachelor_thesis_sality.ned_files.Botmaster;\n\n"\
+    preamble = "package sality.ned_files;\n\n" + \
+        "import sality.ned_files.Superpeer;\n" + \
+        "import sality.ned_files.crawlers.CrawlerV%d;\n" %(cv) + \
+        "import sality.ned_files.Botmaster;\n\n"\
         "network Sality\n{\n\ttypes:\n\t\tchannel Channel extends ned.DelayChannel\n" + \
         "\t\t{\n\t\t\tdelay = 100ms;\n\t\t}\n\tsubmodules:\n" + \
         "\t\tpeer["+str(len(peers))+"]: Superpeer;\n" + \

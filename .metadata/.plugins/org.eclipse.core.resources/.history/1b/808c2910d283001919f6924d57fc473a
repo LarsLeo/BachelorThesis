@@ -1,0 +1,11 @@
+#ifndef ENTITIES_CRAWLERS_BASECRAWLER_H_
+#define ENTITIES_CRAWLERS_BASECRAWLER_H_
+
+#include <omnetpp.h>
+
+using namespace omnetpp;
+
+class BaseCrawler {
+};
+
+#endif

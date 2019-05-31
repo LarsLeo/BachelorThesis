@@ -1,0 +1,11 @@
+#ifndef ENTITIES_SALITYCONSTANTS_H_
+#define ENTITIES_SALITYCONSTANTS_H_
+
+#include <string.h>
+
+class SalityConstants {
+public:
+    inline static string const urlPackMessage = "URLPackMessage";
+};
+
+#endif

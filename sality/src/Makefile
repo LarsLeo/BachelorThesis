@@ -30,7 +30,13 @@ PROJECTRELATIVE_PATH = src
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
-OBJS = $O/entities/Botmaster.o $O/entities/Superpeer.o $O/messages/url_pack_m.o
+OBJS = \
+    $O/entities/Botmaster.o \
+    $O/entities/SalityConstants.o \
+    $O/entities/Superpeer.o \
+    $O/entities/crawlers/BaseCrawler.o \
+    $O/entities/crawlers/CrawlerV1.o \
+    $O/messages/url_pack_m.o
 
 # Message files
 MSGFILES = \

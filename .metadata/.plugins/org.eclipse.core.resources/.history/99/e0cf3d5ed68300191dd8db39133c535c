@@ -1,0 +1,49 @@
+package sality.ned_files;
+
+import sality.ned_files.Superpeer;
+import sality.ned_files.CrawlerV1;
+import sality.ned_files.Botmaster;
+
+network Sality
+{
+	types:
+		channel Channel extends ned.DelayChannel
+		{
+			delay = 100ms;
+		}
+	submodules:
+		peer[9]: Superpeer;
+		botmaster[1]: Botmaster;
+		crawler: CrawlerV1;
+	connections:
+		peer[0].outputGate++ <--> Channel <--> botmaster[0].inputGate++;
+		peer[0].outputGate++ <--> Channel <--> peer[2].inputGate++;
+		botmaster[0].outputGate++ <--> Channel <--> peer[1].inputGate++;
+		botmaster[0].outputGate++ <--> Channel <--> peer[5].inputGate++;
+		peer[1].outputGate++ <--> Channel <--> peer[2].inputGate++;
+		peer[1].outputGate++ <--> Channel <--> peer[8].inputGate++;
+		peer[2].outputGate++ <--> Channel <--> peer[3].inputGate++;
+		peer[2].outputGate++ <--> Channel <--> peer[1].inputGate++;
+		peer[3].outputGate++ <--> Channel <--> peer[4].inputGate++;
+		peer[3].outputGate++ <--> Channel <--> peer[6].inputGate++;
+		peer[4].outputGate++ <--> Channel <--> peer[5].inputGate++;
+		peer[4].outputGate++ <--> Channel <--> peer[0].inputGate++;
+		peer[5].outputGate++ <--> Channel <--> peer[6].inputGate++;
+		peer[5].outputGate++ <--> Channel <--> botmaster[0].inputGate++;
+		peer[6].outputGate++ <--> Channel <--> peer[7].inputGate++;
+		peer[6].outputGate++ <--> Channel <--> peer[2].inputGate++;
+		peer[7].outputGate++ <--> Channel <--> peer[8].inputGate++;
+		peer[7].outputGate++ <--> Channel <--> peer[4].inputGate++;
+		peer[8].outputGate++ <--> Channel <--> peer[0].inputGate++;
+		peer[8].outputGate++ <--> Channel <--> peer[3].inputGate++;
+		crawler.gate++ <--> Channel <--> peer[0].inputGate++;
+		crawler.gate++ <--> Channel <--> peer[1].inputGate++;
+		crawler.gate++ <--> Channel <--> peer[2].inputGate++;
+		crawler.gate++ <--> Channel <--> peer[3].inputGate++;
+		crawler.gate++ <--> Channel <--> peer[4].inputGate++;
+		crawler.gate++ <--> Channel <--> peer[5].inputGate++;
+		crawler.gate++ <--> Channel <--> peer[6].inputGate++;
+		crawler.gate++ <--> Channel <--> peer[7].inputGate++;
+		crawler.gate++ <--> Channel <--> peer[8].inputGate++;
+		crawler.gate++ <--> Channel <--> botmaster[0].inputGate++;
+}

@@ -3,7 +3,7 @@
 Define_Module(Botmaster);
 
 // This is the botmaster as a superpeer, it will periodically increase its own
-// sequence number. In this configuration he will let bots pull and not push
+// sequence number. In this configuration it will let bots pull and not push
 // the new URL Pack himself.
 void Botmaster::initialize() {
     Superpeer::initialize();

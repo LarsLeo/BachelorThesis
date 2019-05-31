@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;sality/src/ned_files/Crawler.ned&apos; to &apos;CrawlerV1.ned&apos;" description="Rename resource &apos;Crawler.ned&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/ned_files/Crawler.ned" name="CrawlerV1.ned" stamp="1559329660615" updateReferences="true"/>
+</session>

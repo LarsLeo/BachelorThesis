@@ -1,0 +1,7 @@
+#include "CrawlerV1.h"
+
+Define_Module(CrawlerV1);
+
+void CrawlerV1::::handleMessage(cMessage *msg)
+{
+}

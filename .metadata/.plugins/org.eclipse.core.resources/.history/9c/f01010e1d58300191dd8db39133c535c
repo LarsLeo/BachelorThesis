@@ -1,0 +1,19 @@
+#ifndef ENTITIES_CRAWLERS_BASECRAWLER_H_
+#define ENTITIES_CRAWLERS_BASECRAWLER_H_
+
+#include <omnetpp.h>
+#include "../../messages/url_pack_m.h"
+#include <list>
+
+using namespace omnetpp;
+
+class BaseCrawler : public cSimpleModule {
+protected:
+    int maxSeqNumber = 0;
+
+
+    virtual void initialize();
+    virtual void handleMessage(cMessage *msg);
+};
+
+#endif

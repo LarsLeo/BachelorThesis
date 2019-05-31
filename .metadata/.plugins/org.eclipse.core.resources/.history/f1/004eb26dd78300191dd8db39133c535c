@@ -1,0 +1,7 @@
+package sality.ned_files;
+
+simple CrawlerV1
+{
+    gates:
+        inout gate[];
+}

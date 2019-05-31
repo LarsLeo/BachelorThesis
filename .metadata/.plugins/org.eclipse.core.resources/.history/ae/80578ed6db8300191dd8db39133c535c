@@ -1,0 +1,11 @@
+#include "BaseCrawler.h"
+
+Define_Module(BaseCrawler);
+
+void BaseCrawler::initialize()
+{
+}
+
+void BaseCrawler::handleMessage(cMessage *msg)
+{
+}

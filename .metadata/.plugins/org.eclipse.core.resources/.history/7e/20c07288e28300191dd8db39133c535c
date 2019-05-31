@@ -1,0 +1,3 @@
+#include "SalityConstants.h"
+
+urlPackMessage = "URLPackMessage";

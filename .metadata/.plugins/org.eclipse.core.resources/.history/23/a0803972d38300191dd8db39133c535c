@@ -1,0 +1,23 @@
+#include "BaseCrawler.h"
+
+Define_Module(BaseCrawler);
+
+void Superpeer::initialize()
+{
+    // The simulation time t is given in minutes
+    // Each bot is randomly assigned a start time, at which it joined the network
+    int startTimeOffset = rand() % membershipManagementDelay;
+    cMessage *neighbourProbeInit = new cMessage(nlProbeMessage);
+    scheduleAt(membershipManagementDelay - startTimeOffset, neighbourProbeInit);
+}
+
+void Superpeer::handleMessage(cMessage *msg)
+{
+    if (strcmp(urlPackMessage, msg->getName()) == 0) {
+        handleURLPackMessage(check_and_cast<Url_pack *>(msg));
+    } else if (strcmp(nlRequestMessage, msg->getName()) == 0){
+        handleNLRequestMessage();
+    } else if (strcmp(nlProbeMessage, msg->getName()) == 0) {
+        probeNeighbours();
+    }
+}

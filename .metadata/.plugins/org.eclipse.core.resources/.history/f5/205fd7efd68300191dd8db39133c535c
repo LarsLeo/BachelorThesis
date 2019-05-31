@@ -1,0 +1,7 @@
+#ifndef ENTITIES_CRAWLERS_CRAWLERV1_H_
+#define ENTITIES_CRAWLERS_CRAWLERV1_H_
+
+class CrawlerV1 {
+};
+
+#endif
