@@ -1,0 +1,39 @@
+#include "CrawlerV1.h"
+
+Define_Module(CrawlerV1);
+
+// V1 works by pulling the sequence numbers in cycles:
+// 1. Poll the sequence numbers of all bots in possibleBotmasters.
+// 2. Wait for each response and save it in a table.
+// 3. Get seqMax from the table.
+// 4. Iterate through the table and discard all bots that have a seqNumber < max.
+// 5. Restart at 1 until convergence.
+void CrawlerV1::initialize()
+{
+    for (int i = 0; i < gateSize("gate"); i++) {
+        possibleBotmasters.push_front(i);
+    }
+    pollSuperpeers();
+}
+
+void CrawlerV1::handleMessage(cMessage *msg) {
+    if (strcmp(SalityConstants::urlPackMessage, msg->getName()) == 0) {
+        addResponseEntry(check_and_cast<Url_pack *>(msg));
+    }
+}
+
+void CrawlerV1::addResponseEntry(Url_pack *msg) {
+
+}
+
+void CrawlerV1::pollSuperpeers() {
+//    Url_pack * urlMessage = new Url_pack(SalityConstants::urlPackMessage);
+//    urlMessage->setSequenceNumber(0);
+//    std::list<int>::iterator it;
+//    responsesLeft =
+//
+//    for (it = possibleBotmasters.begin(); it != possibleBotmasters.end(); it++) {
+//        cMessage * dup = urlMessage->dup();
+//        forwardMessage(dup, *it);
+//    }
+}

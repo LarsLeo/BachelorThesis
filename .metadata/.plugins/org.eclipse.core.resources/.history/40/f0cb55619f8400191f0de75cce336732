@@ -1,0 +1,14 @@
+#ifndef ENTITIES_CRAWLERS_CRAWLERV1_H_
+#define ENTITIES_CRAWLERS_CRAWLERV1_H_
+
+#include "BaseCrawler.h"
+
+class CrawlerV1 : public BaseCrawler {
+protected:
+    std::list <int> seqNumberTable;
+
+    virtual void handleMessage(cMessage *msg) override;
+    void addResponseEntry(Url_pack *msg);
+};
+
+#endif

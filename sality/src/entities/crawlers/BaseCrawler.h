@@ -14,6 +14,7 @@ protected:
 
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+    virtual void forwardMessage(cMessage *msg, int gate);
     virtual void pollSuperpeers();
 };
 

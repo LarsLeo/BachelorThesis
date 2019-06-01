@@ -1,11 +1,10 @@
-22:31:55 **** Incremental Build of configuration release for project sality ****
+21:43:31 **** Incremental Build of configuration release for project sality ****
 make MODE=release all 
 cd src && make
 make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
-entities/crawlers/BaseCrawler.cc
-entities/crawlers/CrawlerV1.cc
+entities/Botmaster.cc
 Creating executable: ../out/gcc-release/src/sality
 make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
 
-22:31:56 Build Finished (took 1s.675ms)
+21:43:32 Build Finished (took 960ms)
 

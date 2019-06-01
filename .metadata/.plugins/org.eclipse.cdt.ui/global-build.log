@@ -754,3 +754,369 @@ entities/crawlers/BaseCrawler.cc
 entities/crawlers/CrawlerV1.cc
 Creating executable: ../out/gcc-release/src/sality
 make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+18:47:18 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+18:51:38 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+In file included from entities/Superpeer.h:6:0,
+                 from entities/Botmaster.h:4,
+                 from entities/Botmaster.cc:1:
+entities/SalityConstants.h:7:25: error: redeclaration of ‘const char* SalityConstants::urlPackMessage’
+     static const char * urlPackMessage;
+                         ^~~~~~~~~~~~~~
+entities/SalityConstants.h:6:25: note: previous declaration ‘const char* SalityConstants::urlPackMessage’
+     static const char * urlPackMessage;
+                         ^~~~~~~~~~~~~~
+make[1]: *** [../out/gcc-release/src/entities/Botmaster.o] Error 1
+Makefile:109: recipe for target '../out/gcc-release/src/entities/Botmaster.o' failed
+make: *** [all] Error 2
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+18:51:59 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+entities/SalityConstants.cc
+entities/Superpeer.cc
+entities/Superpeer.cc: In member function ‘void Superpeer::probeNeighbours()’:
+entities/Superpeer.cc:70:49: error: ‘nlProbeMessage’ was not declared in this scope
+     cMessage *neighbourProbeInit = new cMessage(nlProbeMessage);
+                                                 ^~~~~~~~~~~~~~
+entities/Superpeer.cc:70:49: note: suggested alternative: ‘handleMessage’
+     cMessage *neighbourProbeInit = new cMessage(nlProbeMessage);
+                                                 ^~~~~~~~~~~~~~
+                                                 handleMessage
+entities/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+make[1]: *** [../out/gcc-release/src/entities/Superpeer.o] Error 1
+Makefile:109: recipe for target '../out/gcc-release/src/entities/Superpeer.o' failed
+make: *** [all] Error 2
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+18:52:22 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Superpeer.cc
+entities/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+19:35:34 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+entities/SalityConstants.cc
+entities/Superpeer.cc
+entities/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+19:49:04 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+entities/Superpeer.cc
+entities/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/BaseCrawler.cc: In member function ‘virtual void BaseCrawler::pollSuperpeers()’:
+entities/crawlers/BaseCrawler.cc:26:45: error: ‘i’ was not declared in this scope
+         forwardMessage(dup, "outputGate$o", i);
+                                             ^
+entities/crawlers/BaseCrawler.cc:26:45: note: suggested alternative: ‘it’
+         forwardMessage(dup, "outputGate$o", i);
+                                             ^
+                                             it
+entities/crawlers/BaseCrawler.cc:26:9: error: ‘forwardMessage’ was not declared in this scope
+         forwardMessage(dup, "outputGate$o", i);
+         ^~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.cc:26:9: note: suggested alternative: ‘handleMessage’
+         forwardMessage(dup, "outputGate$o", i);
+         ^~~~~~~~~~~~~~
+         handleMessage
+Makefile:109: recipe for target '../out/gcc-release/src/entities/crawlers/BaseCrawler.o' failed
+make[1]: *** [../out/gcc-release/src/entities/crawlers/BaseCrawler.o] Error 1
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+make: *** [all] Error 2
+19:51:24 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/BaseCrawler.cc: In member function ‘virtual void BaseCrawler::pollSuperpeers()’:
+entities/crawlers/BaseCrawler.cc:28:31: error: no matching function for call to ‘BaseCrawler::forwardMessage(omnetpp::cMessage*&, std::__cxx11::list<int>::iterator&)’
+         forwardMessage(dup, it);
+                               ^
+In file included from entities/crawlers/BaseCrawler.cc:1:0:
+entities/crawlers/BaseCrawler.h:17:18: note: candidate: virtual void BaseCrawler::forwardMessage(omnetpp::cMessage*, int)
+     virtual void forwardMessage(cMessage *msg, int gate);
+                  ^~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.h:17:18: note:   no known conversion for argument 2 from ‘std::__cxx11::list<int>::iterator {aka std::_List_iterator<int>}’ to ‘int’
+Makefile:109: recipe for target '../out/gcc-release/src/entities/crawlers/BaseCrawler.o' failed
+make[1]: *** [../out/gcc-release/src/entities/crawlers/BaseCrawler.o] Error 1
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make: *** [all] Error 2
+Makefile:2: recipe for target 'all' failed
+19:51:40 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/BaseCrawler.cc: In member function ‘virtual void BaseCrawler::pollSuperpeers()’:
+entities/crawlers/BaseCrawler.cc:28:31: error: no matching function for call to ‘BaseCrawler::forwardMessage(omnetpp::cMessage*&, std::__cxx11::list<int>::iterator&)’
+         forwardMessage(dup, it);
+                               ^
+entities/crawlers/BaseCrawler.cc:17:6: note: candidate: virtual void BaseCrawler::forwardMessage(omnetpp::cMessage*, int)
+ void BaseCrawler::forwardMessage(cMessage *msg,  int gate) {
+      ^~~~~~~~~~~
+entities/crawlers/BaseCrawler.cc:17:6: note:   no known conversion for argument 2 from ‘std::__cxx11::list<int>::iterator {aka std::_List_iterator<int>}’ to ‘int’
+make[1]: *** [../out/gcc-release/src/entities/crawlers/BaseCrawler.o] Error 1
+Makefile:109: recipe for target '../out/gcc-release/src/entities/crawlers/BaseCrawler.o' failed
+make: *** [all] Error 2
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+19:53:10 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+20:09:23 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+entities/Superpeer.cc
+entities/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+20:10:00 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+20:11:48 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+20:12:23 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+20:13:46 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+20:14:04 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+20:14:21 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+20:44:03 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+20:44:45 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+21:06:46 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+21:18:35 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+entities/crawlers/CrawlerV1.cc:11:28: error: no ‘void CrawlerV1::initialize()’ member function declared in class ‘CrawlerV1’
+ void CrawlerV1::initialize()
+                            ^
+entities/crawlers/CrawlerV1.cc: In member function ‘virtual void CrawlerV1::pollSuperpeers()’:
+entities/crawlers/CrawlerV1.cc:38:32: error: no matching function for call to ‘CrawlerV1::forwardMessage(omnetpp::cMessage*&, std::pair<const int, int>&)’
+         forwardMessage(dup, *it);
+                                ^
+In file included from entities/crawlers/CrawlerV1.h:4:0,
+                 from entities/crawlers/CrawlerV1.cc:1:
+entities/crawlers/BaseCrawler.h:17:18: note: candidate: virtual void BaseCrawler::forwardMessage(omnetpp::cMessage*, int)
+     virtual void forwardMessage(cMessage *msg, int gate);
+                  ^~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.h:17:18: note:   no known conversion for argument 2 from ‘std::pair<const int, int>’ to ‘int’
+make[1]: *** [../out/gcc-release/src/entities/crawlers/CrawlerV1.o] Error 1
+Makefile:109: recipe for target '../out/gcc-release/src/entities/crawlers/CrawlerV1.o' failed
+make: *** [all] Error 2
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+21:19:43 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+entities/crawlers/CrawlerV1.cc: In member function ‘virtual void CrawlerV1::initialize()’:
+entities/crawlers/CrawlerV1.cc:13:31: error: ‘pair’ was not declared in this scope
+         botmasterTable.insert(pair<int, int>(i, 1)); ;
+                               ^~~~
+entities/crawlers/CrawlerV1.cc:13:31: note: suggested alternative:
+In file included from /usr/include/c++/7/bits/stl_algobase.h:64:0,
+                 from /usr/include/c++/7/bits/char_traits.h:39,
+                 from /usr/include/c++/7/ios:40,
+                 from /usr/include/c++/7/ostream:38,
+                 from /usr/include/c++/7/iostream:39,
+                 from /opt/omnetpp-5.4.1/include/omnetpp/cownedobject.h:20,
+                 from /opt/omnetpp-5.4.1/include/omnetpp/carray.h:19,
+                 from /opt/omnetpp-5.4.1/include/omnetpp.h:28,
+                 from entities/crawlers/BaseCrawler.h:4,
+                 from entities/crawlers/CrawlerV1.h:4,
+                 from entities/crawlers/CrawlerV1.cc:1:
+/usr/include/c++/7/bits/stl_pair.h:208:12: note:   ‘std::pair’
+     struct pair
+            ^~~~
+entities/crawlers/CrawlerV1.cc:13:36: error: expected primary-expression before ‘int’
+         botmasterTable.insert(pair<int, int>(i, 1)); ;
+                                    ^~~
+entities/crawlers/CrawlerV1.cc:13:41: error: expected primary-expression before ‘int’
+         botmasterTable.insert(pair<int, int>(i, 1)); ;
+                                         ^~~
+entities/crawlers/CrawlerV1.cc: In member function ‘virtual void CrawlerV1::pollSuperpeers()’:
+entities/crawlers/CrawlerV1.cc:37:32: error: no matching function for call to ‘CrawlerV1::forwardMessage(omnetpp::cMessage*&, std::pair<const int, int>&)’
+         forwardMessage(dup, *it);
+                                ^
+In file included from entities/crawlers/CrawlerV1.h:4:0,
+                 from entities/crawlers/CrawlerV1.cc:1:
+entities/crawlers/BaseCrawler.h:17:18: note: candidate: virtual void BaseCrawler::forwardMessage(omnetpp::cMessage*, int)
+     virtual void forwardMessage(cMessage *msg, int gate);
+                  ^~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.h:17:18: note:   no known conversion for argument 2 from ‘std::pair<const int, int>’ to ‘int’
+make[1]: *** [../out/gcc-release/src/entities/crawlers/CrawlerV1.o] Error 1
+Makefile:109: recipe for target '../out/gcc-release/src/entities/crawlers/CrawlerV1.o' failed
+make: *** [all] Error 2
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+21:20:02 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+entities/crawlers/CrawlerV1.cc: In member function ‘virtual void CrawlerV1::pollSuperpeers()’:
+entities/crawlers/CrawlerV1.cc:37:32: error: no matching function for call to ‘CrawlerV1::forwardMessage(omnetpp::cMessage*&, std::pair<const int, int>&)’
+         forwardMessage(dup, *it);
+                                ^
+In file included from entities/crawlers/CrawlerV1.h:4:0,
+                 from entities/crawlers/CrawlerV1.cc:1:
+entities/crawlers/BaseCrawler.h:17:18: note: candidate: virtual void BaseCrawler::forwardMessage(omnetpp::cMessage*, int)
+     virtual void forwardMessage(cMessage *msg, int gate);
+                  ^~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.h:17:18: note:   no known conversion for argument 2 from ‘std::pair<const int, int>’ to ‘int’
+Makefile:109: recipe for target '../out/gcc-release/src/entities/crawlers/CrawlerV1.o' failed
+make[1]: *** [../out/gcc-release/src/entities/crawlers/CrawlerV1.o] Error 1
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+make: *** [all] Error 2
+21:20:52 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+21:21:39 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+21:30:14 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+21:33:16 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+21:42:29 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+21:43:06 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+21:43:31 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'

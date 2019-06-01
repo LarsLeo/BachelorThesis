@@ -1,0 +1,21 @@
+#include "CrawlerV1.h"
+
+Define_Module(CrawlerV1);
+
+// V1 works by pulling the sequence numbers in cycles:
+// 1. Poll the sequence numbers of all bots in possibleBotmasters.
+// 2. Wait for each response and save it in a table.
+// 3. Iterate through the table and discard all bots that have a seq number < max.
+// 4. Restart at 1 until convergence.
+void CrawlerV1::handleMessage(cMessage *msg) {
+    if (strcmp(SalityConstants::urlPackMessage, msg->getName()) == 0) {
+        checkSequenceNumber(check_and_cast<Url_pack *>(msg));
+    }
+}
+
+void CrawlerV1::checkSequenceNumber(Url_pack *msg) {
+    EV << "Got message from: " << msg->getArrivalGateId();
+    if (msg->getSequenceNumber() < maxSeqNumber) {
+
+    }
+}
