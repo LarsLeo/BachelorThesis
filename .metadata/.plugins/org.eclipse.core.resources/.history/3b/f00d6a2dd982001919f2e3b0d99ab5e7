@@ -1,8 +1,0 @@
-package bachelor_thesis_sality.ned_files;
-
-simple Superpeer
-{
-    gates:
-	    inout inputGate[];
-	    inout outputGate[];
-}

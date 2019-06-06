@@ -1,3 +1,0 @@
-#include "BaseCrawler.h"
-
-Define_Module(BaseCrawler);

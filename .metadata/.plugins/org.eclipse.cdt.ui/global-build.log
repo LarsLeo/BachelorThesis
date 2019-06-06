@@ -1120,3 +1120,543 @@ make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
 entities/Botmaster.cc
 Creating executable: ../out/gcc-release/src/sality
 make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+10:23:16 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+11:58:59 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/BaseCrawler.cc: In member function ‘virtual void BaseCrawler::forwardMessage(omnetpp::cMessage*, int)’:
+entities/crawlers/BaseCrawler.cc:19:10: error: ‘std::tr1’ has not been declared
+     std::tr1::geometric_distribution<int, double> geometric(0.1);
+          ^~~
+entities/crawlers/BaseCrawler.cc:19:38: error: expected primary-expression before ‘int’
+     std::tr1::geometric_distribution<int, double> geometric(0.1);
+                                      ^~~
+entities/crawlers/BaseCrawler.cc:20:21: error: ‘eng’ was not declared in this scope
+     EV << geometric(eng);
+                     ^~~
+entities/crawlers/BaseCrawler.cc:20:21: note: suggested alternative: ‘send’
+     EV << geometric(eng);
+                     ^~~
+                     send
+make[1]: *** [../out/gcc-release/src/entities/crawlers/BaseCrawler.o] Error 1
+Makefile:109: recipe for target '../out/gcc-release/src/entities/crawlers/BaseCrawler.o' failed
+make: *** [all] Error 2
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+12:03:03 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:03:41 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:07:57 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:08:10 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:08:23 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:08:38 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:08:58 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:09:13 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:10:09 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:10:24 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:10:53 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:11:06 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:12:11 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:13:54 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:14:10 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:14:21 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:18:57 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+In file included from entities/Superpeer.h:6:0,
+                 from entities/Botmaster.h:4,
+                 from entities/Botmaster.cc:1:
+entities/SalityConstants.h:15:58: error: expected identifier before numeric constant
+     static std::geometric_distribution<int> distribution(0.4);
+                                                          ^~~
+entities/SalityConstants.h:15:58: error: expected ‘,’ or ‘...’ before numeric constant
+make[1]: *** [../out/gcc-release/src/entities/Botmaster.o] Error 1
+Makefile:109: recipe for target '../out/gcc-release/src/entities/Botmaster.o' failed
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make: *** [all] Error 2
+Makefile:2: recipe for target 'all' failed
+12:22:32 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+entities/SalityConstants.cc
+entities/SalityConstants.cc:9:58: error: ‘distribution’ was not declared in this scope
+ std::geometric_distribution<int> geometricDistribution = distribution(0.4);
+                                                          ^~~~~~~~~~~~
+make[1]: *** [../out/gcc-release/src/entities/SalityConstants.o] Error 1
+Makefile:109: recipe for target '../out/gcc-release/src/entities/SalityConstants.o' failed
+make: *** [all] Error 2
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+12:22:55 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/SalityConstants.cc
+entities/SalityConstants.cc:9:91: error: expected primary-expression before ‘distribution’
+ std::geometric_distribution<int> geometricDistribution = std::geometric_distribution<int> distribution(0.4);
+                                                                                           ^~~~~~~~~~~~
+Makefile:109: recipe for target '../out/gcc-release/src/entities/SalityConstants.o' failed
+make[1]: *** [../out/gcc-release/src/entities/SalityConstants.o] Error 1
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+make: *** [all] Error 2
+12:35:04 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+entities/SalityConstants.cc
+entities/Superpeer.cc
+entities/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:40:44 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/BaseCrawler.cc: In member function ‘virtual void BaseCrawler::forwardMessage(omnetpp::cMessage*, int)’:
+entities/crawlers/BaseCrawler.cc:19:35: error: ‘geometricDistribution’ is not a member of ‘SalityConstants’
+     int number = SalityConstants::geometricDistribution(SalityConstants::generator);
+                                   ^~~~~~~~~~~~~~~~~~~~~
+Makefile:109: recipe for target '../out/gcc-release/src/entities/crawlers/BaseCrawler.o' failed
+make[1]: *** [../out/gcc-release/src/entities/crawlers/BaseCrawler.o] Error 1
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+make: *** [all] Error 2
+12:40:59 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+../out/gcc-release/src/entities/crawlers/BaseCrawler.o: In function `BaseCrawler::forwardMessage(omnetpp::cMessage*, int)':
+BaseCrawler.cc:(.text+0x1e8): undefined reference to `SalityConstants::generator'
+collect2: error: ld returned 1 exit status
+Makefile:100: recipe for target '../out/gcc-release/src/sality' failed
+make[1]: *** [../out/gcc-release/src/sality] Error 1
+make: *** [all] Error 2
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+12:42:36 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+entities/SalityConstants.cc
+entities/Superpeer.cc
+entities/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:44:02 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/Botmaster.cc
+entities/Superpeer.cc
+entities/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+entities/utility/SalityConstants.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:47:12 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/peers/Botmaster.cc
+entities/peers/Superpeer.cc
+entities/peers/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/peers/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:47:42 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:50:24 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+12:52:46 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+entities/peers/Botmaster.cc
+entities/peers/Superpeer.cc
+entities/peers/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/peers/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+entities/utility/MessageDelayGenerator.cc
+In file included from entities/utility/MessageDelayGenerator.cc:1:0:
+entities/utility/MessageDelayGenerator.h:9:55: error: expected identifier before numeric constant
+         std::geometric_distribution<int> distribution(0.4);
+                                                       ^~~
+entities/utility/MessageDelayGenerator.h:9:55: error: expected ‘,’ or ‘...’ before numeric constant
+make[1]: *** [../out/gcc-release/src/entities/utility/MessageDelayGenerator.o] Error 1
+Makefile:110: recipe for target '../out/gcc-release/src/entities/utility/MessageDelayGenerator.o' failed
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make: *** [all] Error 2
+Makefile:2: recipe for target 'all' failed
+12:53:01 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/utility/MessageDelayGenerator.cc
+In file included from entities/utility/MessageDelayGenerator.cc:1:0:
+entities/utility/MessageDelayGenerator.h:9:55: error: expected identifier before numeric constant
+         std::geometric_distribution<int> distribution(0.4);
+                                                       ^~~
+entities/utility/MessageDelayGenerator.h:9:55: error: expected ‘,’ or ‘...’ before numeric constant
+Makefile:110: recipe for target '../out/gcc-release/src/entities/utility/MessageDelayGenerator.o' failed
+make[1]: *** [../out/gcc-release/src/entities/utility/MessageDelayGenerator.o] Error 1
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+make: *** [all] Error 2
+13:00:56 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+In file included from entities/crawlers/BaseCrawler.h:7:0,
+                 from entities/crawlers/BaseCrawler.cc:1:
+entities/crawlers/../utility/MessageDelayGenerator.h:12:20: error: ISO C++ forbids in-class initialization of non-const static member ‘MessageDelayGenerator::delay’
+         static int delay = 20; // The added delay per distribution tick in ms.
+                    ^~~~~
+Makefile:110: recipe for target '../out/gcc-release/src/entities/crawlers/BaseCrawler.o' failed
+make[1]: *** [../out/gcc-release/src/entities/crawlers/BaseCrawler.o] Error 1
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+make: *** [all] Error 2
+16:03:39 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+entities/utility/MessageDelayGenerator.cc
+entities/utility/SalityConstants.cc
+Creating executable: ../out/gcc-release/src/sality
+../out/gcc-release/src/entities/utility/MessageDelayGenerator.o: In function `MessageDelayGenerator::getGeometricMessageDelay()':
+MessageDelayGenerator.cc:(.text+0x15): undefined reference to `MessageDelayGenerator::generator'
+Makefile:101: recipe for target '../out/gcc-release/src/sality' failed
+collect2: error: ld returned 1 exit status
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make[1]: *** [../out/gcc-release/src/sality] Error 1
+Makefile:2: recipe for target 'all' failed
+make: *** [all] Error 2
+16:04:46 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/utility/MessageDelayGenerator.cc
+Creating executable: ../out/gcc-release/src/sality
+../out/gcc-release/src/entities/utility/MessageDelayGenerator.o: In function `MessageDelayGenerator::getGeometricMessageDelay()':
+MessageDelayGenerator.cc:(.text+0x15): undefined reference to `MessageDelayGenerator::generator'
+collect2: error: ld returned 1 exit status
+Makefile:101: recipe for target '../out/gcc-release/src/sality' failed
+make[1]: *** [../out/gcc-release/src/sality] Error 1
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make: *** [all] Error 2
+Makefile:2: recipe for target 'all' failed
+16:05:51 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+entities/utility/MessageDelayGenerator.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:20:44 **** Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:21:04 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:21:25 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:21:41 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/utility/MessageDelayGenerator.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:21:54 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/utility/MessageDelayGenerator.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:23:16 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+entities/utility/MessageDelayGenerator.cc
+entities/utility/MessageDelayGenerator.cc:4:55: error: expected primary-expression before ‘=’ token
+ int MessageDelayGenerator::geometricHitProbability =  = 0.2;
+                                                       ^
+entities/utility/MessageDelayGenerator.cc:5:54: error: ‘geometricHitProbability’ was not declared in this scope
+ static std::geometric_distribution<int> distribution(geometricHitProbability);
+                                                      ^~~~~~~~~~~~~~~~~~~~~~~
+Makefile:110: recipe for target '../out/gcc-release/src/entities/utility/MessageDelayGenerator.o' failed
+make[1]: *** [../out/gcc-release/src/entities/utility/MessageDelayGenerator.o] Error 1
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make: *** [all] Error 2
+Makefile:2: recipe for target 'all' failed
+16:23:28 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/utility/MessageDelayGenerator.cc
+entities/utility/MessageDelayGenerator.cc:5:54: error: ‘geometricHitProbability’ was not declared in this scope
+ static std::geometric_distribution<int> distribution(geometricHitProbability);
+                                                      ^~~~~~~~~~~~~~~~~~~~~~~
+make[1]: *** [../out/gcc-release/src/entities/utility/MessageDelayGenerator.o] Error 1
+Makefile:110: recipe for target '../out/gcc-release/src/entities/utility/MessageDelayGenerator.o' failed
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+make: *** [all] Error 2
+Makefile:2: recipe for target 'all' failed
+16:24:26 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+entities/utility/MessageDelayGenerator.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:27:25 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:29:07 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:29:50 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:31:48 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/utility/MessageDelayGenerator.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:33:58 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/crawlers/CrawlerV1.cc
+entities/utility/MessageDelayGenerator.cc
+entities/utility/MessageDelayGenerator.cc:3:28: error: conflicting declaration ‘int MessageDelayGenerator::delay’
+ int MessageDelayGenerator::delay = 0.02;
+                            ^~~~~
+In file included from entities/utility/MessageDelayGenerator.cc:1:0:
+entities/utility/MessageDelayGenerator.h:11:22: note: previous declaration as ‘float MessageDelayGenerator::delay’
+         static float delay; // The added delay per distribution tick in seconds.
+                      ^~~~~
+entities/utility/MessageDelayGenerator.cc:3:28: error: declaration of ‘float MessageDelayGenerator::delay’ outside of class is not definition [-fpermissive]
+ int MessageDelayGenerator::delay = 0.02;
+                            ^~~~~
+Makefile:110: recipe for target '../out/gcc-release/src/entities/utility/MessageDelayGenerator.o' failed
+make[1]: *** [../out/gcc-release/src/entities/utility/MessageDelayGenerator.o] Error 1
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+Makefile:2: recipe for target 'all' failed
+make: *** [all] Error 2
+16:34:11 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/utility/MessageDelayGenerator.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:35:12 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:35:26 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:36:20 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+16:40:26 **** Incremental Build of configuration release for project sality ****
+make MODE=release all 
+cd src && make
+make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
+entities/crawlers/BaseCrawler.cc
+entities/peers/Botmaster.cc
+entities/peers/Superpeer.cc
+entities/peers/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/peers/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creating executable: ../out/gcc-release/src/sality
+make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'

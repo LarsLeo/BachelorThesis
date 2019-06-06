@@ -15,7 +15,8 @@ void BaseCrawler::initialize()
 void BaseCrawler::handleMessage(cMessage* msg){}
 
 void BaseCrawler::forwardMessage(cMessage *msg,  int gate) {
-    send(msg, "gate$o", gate);
+    float delay = MessageDelayGenerator::getGeometricMessageDelay();
+    sendDelayed(msg, simTime() + delay, "gate$o", gate);
 }
 
 void BaseCrawler::pollSuperpeers() {

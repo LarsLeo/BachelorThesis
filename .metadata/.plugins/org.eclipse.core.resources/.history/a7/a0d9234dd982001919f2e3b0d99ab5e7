@@ -1,5 +1,0 @@
-namespace bachelor_thesis_sality;
-
-message Url_pack {
-    int sequenceNumber;
-}

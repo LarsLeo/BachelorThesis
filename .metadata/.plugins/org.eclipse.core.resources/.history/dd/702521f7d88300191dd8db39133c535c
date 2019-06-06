@@ -1,3 +1,0 @@
-#include "CrawlerV1.h"
-
-Define_Module(CrawlerV1);

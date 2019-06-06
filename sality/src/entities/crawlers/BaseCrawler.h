@@ -3,7 +3,8 @@
 
 #include <omnetpp.h>
 #include "../../messages/url_pack_m.h"
-#include "../SalityConstants.h"
+#include "../utility/SalityConstants.h"
+#include "../utility/MessageDelayGenerator.h"
 
 using namespace omnetpp;
 

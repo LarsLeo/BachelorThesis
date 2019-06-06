@@ -1,10 +1,16 @@
-21:43:31 **** Incremental Build of configuration release for project sality ****
+16:40:26 **** Incremental Build of configuration release for project sality ****
 make MODE=release all 
 cd src && make
 make[1]: Entering directory '/opt/omnetpp-5.4.1/thesis/sality/src'
-entities/Botmaster.cc
+entities/crawlers/BaseCrawler.cc
+entities/peers/Botmaster.cc
+entities/peers/Superpeer.cc
+entities/peers/Superpeer.cc: In member function ‘void Superpeer::handleURLPackMessage(Url_pack*)’:
+entities/peers/Superpeer.cc:33:17: warning: ignoring return value of ‘int asprintf(char**, const char*, ...)’, declared with attribute warn_unused_result [-Wunused-result]
+         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+         ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Creating executable: ../out/gcc-release/src/sality
 make[1]: Leaving directory '/opt/omnetpp-5.4.1/thesis/sality/src'
 
-21:43:32 Build Finished (took 960ms)
+16:40:29 Build Finished (took 2s.465ms)
 
