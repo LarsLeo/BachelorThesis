@@ -1,6 +1,0 @@
-#ifndef ENTITIES_SALITYCONSTANTS_H_
-#define ENTITIES_SALITYCONSTANTS_H_
-
-#define char * urlPackMessage = "URLPackMessage";
-
-#endif

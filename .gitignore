@@ -4,6 +4,7 @@
 
 ### Omnet++ ###
 .metadata/*
+out/*
 
 ### C ###
 # Prerequisites

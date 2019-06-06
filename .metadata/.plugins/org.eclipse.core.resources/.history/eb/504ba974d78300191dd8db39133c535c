@@ -1,7 +1,0 @@
-package sality.ned_files;
-
-simple BaseCrawler
-{
-    gates:
-	    inout gate[];
-}

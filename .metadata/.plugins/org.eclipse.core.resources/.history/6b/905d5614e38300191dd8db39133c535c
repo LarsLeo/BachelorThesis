@@ -1,5 +1,0 @@
-#include "SalityConstants.h"
-
-static const char * getUrlPackMessageString() {
-    return urlPackMessage;
-}

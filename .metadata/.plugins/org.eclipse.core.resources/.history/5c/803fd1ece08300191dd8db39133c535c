@@ -1,8 +1,0 @@
-#ifndef ENTITIES_SALITYCONSTANTS_H_
-#define ENTITIES_SALITYCONSTANTS_H_
-
-class SalityConstants {
-    char* const urlPackMessage = "URLPackMessage";
-};
-
-#endif

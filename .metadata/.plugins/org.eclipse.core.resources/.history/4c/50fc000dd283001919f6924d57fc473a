@@ -1,7 +1,0 @@
-#ifndef ENTITIES_CRAWLERS_BASECRAWLER_H_
-#define ENTITIES_CRAWLERS_BASECRAWLER_H_
-
-class BaseCrawler {
-};
-
-#endif
