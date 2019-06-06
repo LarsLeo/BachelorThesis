@@ -5,6 +5,7 @@
 ### Omnet++ ###
 .metadata/*
 out/*
+sality/out/*
 
 ### C ###
 # Prerequisites
