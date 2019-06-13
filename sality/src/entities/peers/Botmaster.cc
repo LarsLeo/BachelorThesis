@@ -11,16 +11,21 @@ void Botmaster::initialize() {
 }
 
 void Botmaster::scheduleNextURLPack() {
-    sequenceNumber++;
-    EV << "Botmaster increased sequence number to: " << sequenceNumber << "\n";
     int nextURLPackOffset = rand() % (maxNewURLPackDelay / 2);
     cMessage *newURLPack = new cMessage(SalityConstants::newURLPackMessage);
     scheduleAt(simTime() + maxNewURLPackDelay - nextURLPackOffset, newURLPack);
 }
 
+void Botmaster::publishNewURLPack() {
+    sequenceNumber++;
+    EV_INFO << "botmaster: seq=" << sequenceNumber << " t=" << simTime() << "\n";
+}
+
 void Botmaster::handleMessage(cMessage *msg) {
     if (strcmp(SalityConstants::newURLPackMessage, msg->getName()) == 0) {
+        publishNewURLPack();
         scheduleNextURLPack();
+        delete msg;
     } else {
         Superpeer::handleMessage(msg);
     }

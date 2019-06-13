@@ -4,6 +4,7 @@
 class SalityConstants {
 public:
     static const char * urlPackMessage;
+    static const char * urlPackProbeMessage;
     static const char * nlProbeMessage;
     static const char * nlRequestMessage;
     static const char * nlResponseMessage;

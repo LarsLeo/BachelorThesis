@@ -12,13 +12,14 @@ void CrawlerV1::initialize() {
     for (int i = 0; i < gateSize("gate"); i++) {
         botmasterTable.insert(std::pair<int, int>(i, 1)); ;
     }
-    pollSuperpeers();
+    BaseCrawler::initialize();
 }
 
 void CrawlerV1::handleMessage(cMessage *msg) {
     if (strcmp(SalityConstants::urlPackMessage, msg->getName()) == 0) {
         addResponseEntry(check_and_cast<Url_pack *>(msg));
     }
+    delete msg;
 }
 
 void CrawlerV1::addResponseEntry(Url_pack *msg) {
@@ -32,7 +33,7 @@ void CrawlerV1::addResponseEntry(Url_pack *msg) {
 }
 
 void CrawlerV1::pollSuperpeers() {
-    Url_pack * urlMessage = new Url_pack(SalityConstants::urlPackMessage);
+    Url_pack * urlMessage = new Url_pack(SalityConstants::urlPackProbeMessage);
     urlMessage->setSequenceNumber(0);
     responsesLeft = botmasterTable.size();
 
@@ -64,5 +65,5 @@ void CrawlerV1::updatePossibleBotmasters() {
         }
     }
 
-    EV << botmasterTable.size();
+//    EV_INFO << "Crawler V1: Current table size: " << botmasterTable.size();
 }

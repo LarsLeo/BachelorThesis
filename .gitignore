@@ -6,6 +6,7 @@
 .metadata/*
 out/*
 sality/out/*
+sality/simulations/.cmdenv-log*
 
 ### C ###
 # Prerequisites
@@ -220,3 +221,4 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/c,c++,linux,python
+/.metadata/

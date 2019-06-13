@@ -19,19 +19,38 @@ void Superpeer::handleMessage(cMessage *msg)
         handleNLRequestMessage();
     } else if (strcmp(SalityConstants::nlProbeMessage, msg->getName()) == 0) {
         probeNeighbours();
+    } else if (strcmp(SalityConstants::urlPackProbeMessage, msg->getName()) == 0) {
+        handleURLPackProbeMessage(check_and_cast<Url_pack *>(msg));
     }
+    delete msg;
+}
+
+void Superpeer::handleURLPackProbeMessage(Url_pack *msg) {
+    char* outputGate;
+    asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+
+    if (msg->getSequenceNumber() > sequenceNumber) {
+        Url_pack *urlProbeMessage = new Url_pack(SalityConstants::urlPackProbeMessage);
+        urlProbeMessage->setSequenceNumber(sequenceNumber);
+        forwardMessage(urlProbeMessage, outputGate, msg->getArrivalGate()->getIndex());
+    } else if (msg->getSequenceNumber() < sequenceNumber) {
+        Url_pack *urlMessage = new Url_pack(SalityConstants::urlPackMessage);
+        urlMessage->setSequenceNumber(sequenceNumber);
+        forwardMessage(urlMessage, outputGate, msg->getArrivalGate()->getIndex());
+    }
+
+    free(outputGate);
 }
 
 void Superpeer::handleURLPackMessage(Url_pack *msg) {
     if (msg->getSequenceNumber() > sequenceNumber) {
         sequenceNumber = msg->getSequenceNumber();
-        //EV << "Node: " << getIndex() << " updated to: " << sequenceNumber << "\n";
+        EV_INFO << "peer: id=" << getIndex() << " seq=" << sequenceNumber << " t=" << simTime() << endl;
     } else if (msg->getSequenceNumber() < sequenceNumber) {
         Url_pack *urlMessage = new Url_pack(SalityConstants::urlPackMessage);
         urlMessage->setSequenceNumber(sequenceNumber);
         char* outputGate;
         asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
-        //EV << getIndex() << " received older URL pack, sending newer to " << outputGate << "\n";
         forwardMessage(urlMessage, outputGate, msg->getArrivalGate()->getIndex());
         free(outputGate);
     }
@@ -44,7 +63,7 @@ void Superpeer::handleNLRequestMessage() {
 
 void Superpeer::forwardMessage(cMessage *msg, const char* gateName, int gate) {
     float delay = MessageDelayGenerator::getGeometricMessageDelay();
-    sendDelayed(msg, simTime() + delay, gateName, gate);
+    sendDelayed(msg, delay, gateName, gate);
 }
 
 void Superpeer::broadcastMessage(cMessage *msg) {
@@ -60,10 +79,8 @@ void Superpeer::broadcastMessage(cMessage *msg) {
 // Membership Management Cycle that is called every 40 minutes.
 // TODO: GoodCount, LastOnline, size currNeighbourList check and fetch neighbours
 void Superpeer::probeNeighbours() {
-    //EV << "Node " << getIndex() << " probing Neighbourlist at time: " << simTime() << "\n";
-
     // Each MM Cycle a bot will send its own sequence number to its neighbours.
-    Url_pack *msg = new Url_pack(SalityConstants::urlPackMessage);
+    Url_pack *msg = new Url_pack(SalityConstants::urlPackProbeMessage);
     msg->setSequenceNumber(sequenceNumber);
     broadcastMessage(msg);
 

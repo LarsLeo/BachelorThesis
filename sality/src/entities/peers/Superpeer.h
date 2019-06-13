@@ -12,7 +12,7 @@ class Superpeer : public cSimpleModule {
 protected:
     int sequenceNumber = 1;
     // TODO: for real simulation increase to 2400.
-    int membershipManagementDelay = 10; // Given in seconds, all 40 minutes it is probed, so 2400.
+    int membershipManagementDelay = 2400; // Given in seconds, all 40 minutes it is probed, so 2400.
     // int neighbourListSize = 1000;
     // int lowNeighbourThreshold = 980;
     // int goodCountThreshold = -30;
@@ -25,6 +25,7 @@ protected:
     virtual void broadcastMessage(cMessage *msg);
     void probeNeighbours();
     void handleURLPackMessage(Url_pack *msg);
+    void handleURLPackProbeMessage(Url_pack *msg);
     void handleNLRequestMessage();
 };
 
