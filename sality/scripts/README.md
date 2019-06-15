@@ -1,3 +1,5 @@
+# Base directory for all scripts
+
 ### graphml-to-ned.py:
 - Parse graphml files, that contain node and edge definitions via the graphml-to-ned.py script. 
 - The output is a NED file, that contains all the nodes, of which n specified ones are botmaster nodes, as well as a crawler of version x. 
