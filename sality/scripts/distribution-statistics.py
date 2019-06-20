@@ -19,17 +19,29 @@ def main(path):
     printStats(urlPackEntries, urlPackReceptions, numPeers)
 
 def printStats(urlPackEntries, urlPackReceptions, numPeers):
+    percentageDict = {}
+    lossList = []
+
     for seqNum, entryTime in urlPackEntries.items():
         receiptList = urlPackReceptions[seqNum]
+        lossList.append(numPeers - len(receiptList))
 
-        for i in np.arange(0.2, 1, 0.3):
-            printPropagationTime(receiptList, i, numPeers, seqNum, entryTime)
+        for i in np.arange(0.2, 1, 0.2):
+            if not i in percentageDict:
+                percentageDict[i] = list()
 
+            extractPropagationTime(receiptList, i, numPeers, seqNum, entryTime, percentageDict)
 
-def printPropagationTime(receiptList, percentage, numPeers, seqNum, entryTime):
-    index = int(numPeers * percentage)
-    if len(receiptList) > index:
-        print("URL Pack number: ", seqNum, " ", percentage * 100 ,"% propagation after: " , receiptList[index] -  entryTime, "seconds")
+    for i in np.arange(0.2, 1, 0.2):
+        print("Mean distribution time for ", i, "%: ", np.mean(percentageDict[i]))
+            
+    print("Mean number of superpeers that do not receive a URL Pack: ", np.mean(lossList))
+
+def extractPropagationTime(receiptList, percentage, numPeers, seqNum, entryTime, percentageDict):
+    index = int((numPeers * percentage) - 1)
+    if (len(receiptList) > index) and (index >= 0) :
+        percentageDict[percentage].append(receiptList[index] -  entryTime)
+        #print("URL Pack number: ", seqNum, " ", percentage * 100 ,"% propagation after: " , receiptList[index] -  entryTime, "seconds")
 
 def extractEntities(logFile, urlPackEntries, urlPackReceptions):
     numPeers = 0
