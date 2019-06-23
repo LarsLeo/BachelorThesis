@@ -6,9 +6,9 @@ void Superpeer::initialize()
 {
     // The simulation time t is given in minutes
     // Each bot is randomly assigned a start time, at which it joined the network
-    int startTimeOffset = rand() % membershipManagementDelay;
+    int startTimeOffset = intrand(membershipManagementDelay);
     cMessage *neighbourProbeInit = new cMessage(SalityConstants::nlProbeMessage);
-    scheduleAt(membershipManagementDelay - startTimeOffset, neighbourProbeInit);
+    scheduleAt(startTimeOffset, neighbourProbeInit);
 }
 
 void Superpeer::handleMessage(cMessage *msg)

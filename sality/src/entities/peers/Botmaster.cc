@@ -7,15 +7,15 @@ Define_Module(Botmaster);
 // the new URL Pack himself.
 void Botmaster::initialize() {
     maxNewURLPackDelay = par("maxNewURLPackDelay");
-    EV_INFO << "Botmaster.maxNewURLPackDelay = " << maxNewURLPackDelay << endl;
+    //EV_INFO << "Botmaster.maxNewURLPackDelay = " << maxNewURLPackDelay << endl;
     Superpeer::initialize();
     scheduleNextURLPack();
 }
 
 void Botmaster::scheduleNextURLPack() {
-    int nextURLPackOffset = rand() % maxNewURLPackDelay;
+    int nextURLPackOffset = intrand(maxNewURLPackDelay);
     cMessage *newURLPack = new cMessage(SalityConstants::newURLPackMessage);
-    scheduleAt(simTime() + maxNewURLPackDelay - nextURLPackOffset, newURLPack);
+    scheduleAt(simTime() + nextURLPackOffset, newURLPack);
 }
 
 void Botmaster::publishNewURLPack() {
