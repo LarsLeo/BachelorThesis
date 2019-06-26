@@ -6,16 +6,16 @@ Define_Module(Botmaster);
 // sequence number. In this configuration it will let bots pull and not push
 // the new URL Pack himself.
 void Botmaster::initialize() {
-    maxNewURLPackDelay = par("maxNewURLPackDelay");
-    //EV_INFO << "Botmaster.maxNewURLPackDelay = " << maxNewURLPackDelay << endl;
+    urlPackDelay = par("urlPackDelay");
+    urlPackOffset = par("urlPackOffset");
     Superpeer::initialize();
     scheduleNextURLPack();
 }
 
 void Botmaster::scheduleNextURLPack() {
-    int nextURLPackOffset = intrand(maxNewURLPackDelay);
+    int nextURLPackOffset = intrand(urlPackOffset);
     cMessage *newURLPack = new cMessage(SalityConstants::newURLPackMessage);
-    scheduleAt(simTime() + nextURLPackOffset, newURLPack);
+    scheduleAt(simTime() + urlPackDelay - nextURLPackOffset, newURLPack);
 }
 
 void Botmaster::publishNewURLPack() {

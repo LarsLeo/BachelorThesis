@@ -2,23 +2,63 @@ import click
 import re
 import numpy as np
 
+from os import listdir
+from os.path import isfile, join
+
 @click.command()
-@click.option('--path', default="../simulations/results/General-#0.out", help='Path to OMNeT++ Log file.')
+@click.option('--path', default='../simulations/results', help='Path to OMNeT++ results directory, that contains the log files.')
 
 def main(path):
+    filesDict = {}
+
+    for f in listdir(path):
+        filePath = join(path, f)
+        
+        if not isfile(filePath):
+            continue
+        
+        m = re.search(r"General-(\d+)s-\#(\d+).out", f)
+        if m:
+            # runNumber = m.group(2) currently not used
+            simTimeLimit = m.group(1)
+            
+            if not simTimeLimit in filesDict:
+                filesDict[simTimeLimit] = list()
+            filesDict[simTimeLimit].append(filePath)
+
+    for simTimeLimit, runFiles in filesDict.items():
+        percentageDict = {}
+        meanLoss = 0
+        
+        for runFile in runFiles:
+            runResults = extractFileData(runFile)
+            for i in np.arange(0.2, 1, 0.2):
+                if not i in percentageDict:
+                    percentageDict[i] = list()
+                percentageDict[i].append(runResults[0][i])
+            meanLoss = meanLoss + runResults[1]
+
+        meanLoss = meanLoss / len(runFiles)
+        print(simTimeLimit, " - mean package loss: ", meanLoss)
+
+        for i in np.arange(0.2, 1, 0.2):
+            percentageDict[i] = np.mean(percentageDict[i])
+            print(simTimeLimit, " - time for ", i, "% propagation: ", np.mean(percentageDict[i]))
+
+def extractFileData(filePath):
     # These two dictionaries are identified by seq as key, Entries has botmaster publish time as value,
     # Receptions has receive times from superpeers as list of values. Receptions will be sorted, since
     # OMNeT++ is sequential by default.
     urlPackEntries = {}
     urlPackReceptions = {}
 
-    logFile = open(path, "r")
+    logFile = open(filePath, "r")
     numPeers = extractEntities(logFile, urlPackEntries, urlPackReceptions)
     logFile.close()
 
-    printStats(urlPackEntries, urlPackReceptions, numPeers)
+    return extractStats(urlPackEntries, urlPackReceptions, numPeers)
 
-def printStats(urlPackEntries, urlPackReceptions, numPeers):
+def extractStats(urlPackEntries, urlPackReceptions, numPeers):
     percentageDict = {}
     lossList = []
 
@@ -32,10 +72,15 @@ def printStats(urlPackEntries, urlPackReceptions, numPeers):
 
             extractPropagationTime(receiptList, i, numPeers, seqNum, entryTime, percentageDict)
 
-    for i in np.arange(0.2, 1, 0.2):
-        print("Mean distribution time for ", i, "%: ", np.mean(percentageDict[i]))
-            
-    print("Mean number of superpeers that do not receive a URL Pack: ", np.mean(lossList))
+    # for i in np.arange(0.2, 1, 0.2):
+    #     print("Mean distribution time for ", i, "%: ", np.mean(percentageDict[i]))
+    # print("Mean number of superpeers that do not receive a URL Pack: ", meanLoss)
+
+    meanLoss = np.mean(lossList)
+    for key, val in percentageDict.items():
+        percentageDict[key] = np.mean(val)
+
+    return (percentageDict, meanLoss)
 
 def extractPropagationTime(receiptList, percentage, numPeers, seqNum, entryTime, percentageDict):
     index = int((numPeers * percentage) - 1)

@@ -10,7 +10,8 @@ protected:
     void handleMessage(cMessage *msg) override;
 
 private:
-    int maxNewURLPackDelay; // possible amount of simulation time in seconds to pass before next URL Pack is send
+    int urlPackDelay; // The default time between publishing 2 URL Packs in seconds.
+    int urlPackOffset; // Offset for the default delay.
 
     void scheduleNextURLPack();
     void publishNewURLPack();

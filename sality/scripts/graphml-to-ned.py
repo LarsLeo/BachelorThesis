@@ -53,7 +53,7 @@ def writePreamble(nedFile, peers, botmasters, cv):
         "import sality.ned_files.crawlers.CrawlerV%d;\n" %(cv) + \
         "import sality.ned_files.Botmaster;\n\n"\
         "network Sality\n{\n\ttypes:\n\t\tchannel Channel extends ned.DelayChannel\n" + \
-        "\t\t{\n\t\t\tdelay = 100ms;\n\t\t}\n\tsubmodules:\n" + \
+        "\t\t{\n\t\t\tdelay = 50ms;\n\t\t}\n\tsubmodules:\n" + \
         "\t\tpeer["+str(len(peers))+"]: Superpeer;\n" + \
         "\t\tbotmaster["+str(len(botmasters))+"]: Botmaster;\n" + \
         "\t\tcrawler: CrawlerV%d;\n" %(cv) + \
