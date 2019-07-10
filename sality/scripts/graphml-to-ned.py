@@ -4,20 +4,23 @@ import re
 @click.command()
 @click.option('--path', help='Path to GraphML file.', required=True)
 @click.option('--output', default='Sality.ned', help='Path to output NED file.')
-@click.option('--n', default=1, help='Number of botmaster peers')
-@click.option('--cv', default=1, help='Version of the crawler used')
+@click.option('--pb', default=2, help="""Version of the botmaster used:
+1: Passive, 2: Active.""")
 
-def main(path, output, n, cv):
+# @click.option('--percentage', help="""percentage of botmaster peers to create,
+# when using botmaster version 1, else percentage of superpeers the botmaster contacts""", default=10)
+
+def main(path, output, pb):
     peers = []
-    botmasters = []
+    #botmasterPeers = []
     edges = {}
 
     extractEntities(path, peers, edges) # Extract all nodes and Edges from the Graphml file
-    createBotmasters(peers, botmasters, n) # Switch n peers to botmasters evenly distributed
+    #createBotmasters(peers, botmasterPeers, percentage) # Switch n peers to botmasterPeers evenly distributed
 
     nedFile = open(output,"w+")
-    writePreamble(nedFile, peers, botmasters, cv)
-    writeConnections(nedFile, peers, botmasters, edges)
+    writePreamble(nedFile, peers)
+    writeConnections(nedFile, peers, edges)
     writePostamble(nedFile)
 
     nedFile.close()
@@ -35,54 +38,57 @@ def extractEntities(path, peers, edges):
             if m:
                 edgeSource = m.group(1)
                 edgeTarget = m.group(2)   
-                if edgeSource in edges:
-                    edges[edgeSource].append(edgeTarget)  
-                else:
-                    edges[edgeSource] = list(edgeTarget)
+                if not edgeSource in edges:
+                    edges[edgeSource] = list()
+                edges[edgeSource].append(edgeTarget)
+
     graphFile.close()
 
-def createBotmasters(peers, botmasters, n):
-    numNodes = len(peers)
-    modVal = int(numNodes / n)
-    for i in range(1, n + 1):
-        botmasters.append(peers.pop(numNodes - (i * modVal - 1)))
-
-def writePreamble(nedFile, peers, botmasters, cv):
+def writePreamble(nedFile, peers):
     preamble = "package sality.ned_files;\n\n" + \
         "import sality.ned_files.Superpeer;\n" + \
-        "import sality.ned_files.crawlers.CrawlerV%d;\n" %(cv) + \
-        "import sality.ned_files.Botmaster;\n\n"\
+        "import sality.ned_files.Crawler;\n" + \
+        "import sality.ned_files.Botmaster;\n\n" + \
         "network Sality\n{\n\ttypes:\n\t\tchannel Channel extends ned.DelayChannel\n" + \
         "\t\t{\n\t\t\tdelay = 50ms;\n\t\t}\n\tsubmodules:\n" + \
         "\t\tpeer["+str(len(peers))+"]: Superpeer;\n" + \
-        "\t\tbotmaster["+str(len(botmasters))+"]: Botmaster;\n" + \
-        "\t\tcrawler: CrawlerV%d;\n" %(cv) + \
+        "\t\tcrawler: Crawler;\n" + \
+        "\t\tbotmaster: Botmaster;\n" + \
         "\tconnections:\n"
 
     nedFile.write(preamble)
 
-def writeConnections(nedFile, peers, botmasters, edges):
+def writeConnections(nedFile, peers, edges):
     for source, targets in edges.items():
-        sourceString = generateConnectionString(source, peers, botmasters)
+        sourceString = generateConnectionString(source, peers)
 
         for target in targets:
-            targetString = generateConnectionString(target, peers, botmasters)
+            targetString = generateConnectionString(target, peers)
             nedFile.write("\t\t%s.outputGate++ <--> Channel <--> %s.inputGate++;\n" %(sourceString, targetString))
     
-    # Create allmighty Crawler node
-    for i in range(len(peers)):
-        nedFile.write(generateCrawlerConnectionString("peer", i))
-    for i in range(len(botmasters)):
-        nedFile.write(generateCrawlerConnectionString("botmaster", i))
+    # Create allmighty Crawler nodes
+    generateGodmodeConnection(nedFile, "crawler", len(peers))
+    generateGodmodeConnection(nedFile, "botmaster", len(peers))
 
-def generateConnectionString(node, peers, botmasters):
-    return ("peer[%d]" % (peers.index(node))) if (node in peers) else "botmaster[%d]" % (botmasters.index(node))
+def generateConnectionString(node, peers):
+    return ("peer[%d]" % (peers.index(node)))
 
-def generateCrawlerConnectionString(entity, i):
-    return "\t\tcrawler.gate++ <--> Channel <--> %s[%d].inputGate++;\n" %(entity, i)
+def generateGodmodeConnection(nedFile, entity, numPeers):
+    for i in range(numPeers):
+        nedFile.write("\t\t%s.gate++ <--> Channel <--> peer[%d].inputGate++;\n" %(entity, i))
 
 def writePostamble(nedFile):
     nedFile.write("}\n")
+
+# def createBotmasters(peers, botmasterPeers, percentage):
+#     numNodes = len(peers)
+#     percentageBotmasters = int(numNodes * percentage / 100)
+#     numBotmasterPeers = percentageBotmasters if percentageBotmasters > 0 else 1
+#     print("Number of botmasterPeers: ", numBotmasterPeers)
+#     stepSize = int(numNodes / numBotmasterPeers)
+#     for i in range(0, numBotmasterPeers):
+#         print(numNodes - (i * stepSize) - 1)
+#         botmasterPeers.append(peers.pop(numNodes - (i * stepSize) - 1))
     
 if __name__ == '__main__':
     main()
