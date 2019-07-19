@@ -8,6 +8,7 @@ out/*
 sality/out/*
 sality/simulations/.cmdenv-log*
 *.code-workspace
+sality/src/ned\_files/Sality.ned
 
 ### C ###
 # Prerequisites
