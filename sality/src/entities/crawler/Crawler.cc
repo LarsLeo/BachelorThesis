@@ -67,6 +67,8 @@ void Crawler::pollSuperpeers() {
         cMessage * dup = urlMessage->dup();
         forwardMessage(dup, it->first);
     }
+
+    delete urlMessage;
 }
 
 void Crawler::updatePossibleBotmasters() {

@@ -18,7 +18,8 @@ void Botmaster::calculatePeerOffset() {
     int numPeersKnown = numPeers * (float(distributionPercentage) / 100);
     int knownPeers = numPeersKnown > 0 ? numPeersKnown : 1;
     peerOffset = numPeers / knownPeers;
-    EV_INFO << peerOffset << endl;
+
+    EV_INFO << "number peers: " << numPeers << endl;
 }
 
 void Botmaster::scheduleNextURLPack() {
@@ -68,6 +69,8 @@ void Botmaster::broadcastMessage(cMessage *msg) {
         dup->setTimestamp();
         forwardMessage(dup, i);
     }
+
+    delete msg;
 }
 
 // Used for version 2, answering probe messages

@@ -21,6 +21,7 @@ void Superpeer::handleMessage(cMessage *msg)
     } else if (strcmp(SalityConstants::urlPackProbeMessage, msg->getName()) == 0) {
         handleURLPackProbeMessage(check_and_cast<Url_pack *>(msg));
     }
+
     delete msg;
 }
 
@@ -73,6 +74,8 @@ void Superpeer::broadcastMessage(cMessage *msg) {
         dup->setTimestamp();
         forwardMessage(dup, "outputGate$o", i);
     }
+
+    delete msg;
 }
 
 // Membership Management Cycle that is called every 40 minutes.
