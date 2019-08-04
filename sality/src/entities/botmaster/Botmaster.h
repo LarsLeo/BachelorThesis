@@ -23,8 +23,10 @@ private:
     int version; // Botmaster version
     int distributionPercentage; // Percentage of known peers if active or number botmaster peers if passive
     int peerOffset;
+    int botmasterPeer; // If botmaster version == 1, this peer denotes which of the superpeers plays the botmaster
 
-    void calculatePeerOffset();
+    void calculatePeerOffset(int numPeers);
+    void pushToBotmasterPeer(); // Passive
     void pushWithProtocol(); // Active 1
     void pushDirectly(); // Active 2
     void handlePeerProbe(cMessage *msg);

@@ -6,11 +6,16 @@ import csv
 from os import listdir
 from os.path import isfile, join
 
+'''
+This script extracts distribution statistics from the sality simulations.
+Mainly mean, min, max distribution of URL packs are calculated.
+'''
+
 @click.command()
 @click.option('--path', default='../simulations/results', help='Path to OMNeT++ results directory, that contains the log files.')
 
 def main(path):
-    # in the form {'botmasterVersion + ':' + percentageKnownPeers' : {'simTimeLimit' : list()}}
+    # in the form {'BV' + botmasterVersion + ':' + percentageKnownPeers' : list()}
     filesDict = {}
 
     extractFiles(filesDict, path)  
@@ -18,7 +23,7 @@ def main(path):
     
 '''
 Extracts all simulation names and saves all files of the individual runs of the simulation
-under the simulation name key in combination with the simTimeLimit in filesDict.
+under the simulation name key in filesDict.
 '''
 def extractFiles(filesDict, path):
     for f in listdir(path):
@@ -27,63 +32,50 @@ def extractFiles(filesDict, path):
         if not isfile(filePath):
             continue
         
-        m = re.search(r"BV(\d+)-(\d+),(\d+)s-\#(\d+).out", f)
+        m = re.search(r"BV(\d+)-(\d+)-\#(\d+).out", f)
         if m:
             botmasterVersion = m.group(1)
-            percentageKnownPeers = m.group(2)
-            simTimeLimit = m.group(3)
-            # runNumber = m.group(4) currently not used
+            percentageKnownPeers = m.group(2) # If BV == 1, this is 1 for one peer
 
-            runName = botmasterVersion + ':' + percentageKnownPeers
+            runName = 'BV' + botmasterVersion + '-' + percentageKnownPeers
 
             if not runName in filesDict:
-                filesDict[runName] = {}
-            
-            if not simTimeLimit in filesDict[runName]:
-                filesDict[runName][simTimeLimit] = list()
+                filesDict[runName] = list()
 
-            filesDict[runName][simTimeLimit].append(filePath)
+            filesDict[runName].append(filePath)
 
 '''
 Extracts mean package loss/propagation for all simulations over the different seeds. 
 '''
 def extractStatistics(filesDict):
-    for runName, simTimeLimits in filesDict.items():
-        for simTimeLimit, runFiles in simTimeLimits.items():
-            percentageDict = {}
-            meanLoss = list()
-            minDict = {}
-            maxDict = {}
+    for runName, runFiles in filesDict.items():
+        percentageDict = {}
+        meanLoss = list()
+        minDict = {}
+        maxDict = {}
 
-            # save statistics for 0-100% distribution of URL packs
+        for i in range(0, 101, 5):
+            percentageDict[i] = list()
+            minDict[i] = list()
+            maxDict[i] = list()
+        
+        for runFile in runFiles:
+            extractFileData(runFile, percentageDict, minDict, maxDict, meanLoss)
+
+        meanLoss = np.mean(meanLoss)
+
+        with open('results/simulation/' + runName + '.csv', 'w') as csvfile:
+            filewriter = csv.writer(csvfile, delimiter=',',
+                                    quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            filewriter.writerow(['Percentage', 'Propagation Time', 'Min Delay', 'Max Delay', 'Mean Loss'])
+
             for i in range(0, 101, 5):
-                percentageDict[i] = list()
-                minDict[i] = list()
-                maxDict[i] = list()
-            
-            for runFile in runFiles:
-                extractFileData(runFile, percentageDict, minDict, maxDict, meanLoss)
+                minDict[i] = min(percentageDict[i])
+                maxDict[i] = max(percentageDict[i])
+                percentageDict[i] = np.mean(percentageDict[i])
 
-            meanLoss = np.mean(meanLoss)
-
-            with open('results/' + runName + ':' + simTimeLimit + '.csv', 'w') as csvfile:
-                filewriter = csv.writer(csvfile, delimiter=',',
-                                        quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                filewriter.writerow(['Percentage', 'Propagation Time', 'Min Delay', 'Max Delay', 'Mean Loss'])
-
-                #print("Simulation - ", runName, ", simTimeLimit - ", simTimeLimit, ":")
-                for i in range(0, 101, 5):
-                    minDict[i] = min(percentageDict[i])
-                    maxDict[i] = max(percentageDict[i])
-                    percentageDict[i] = np.mean(percentageDict[i])
-
-                    filewriter.writerow([i, "{:20.2f}".format(percentageDict[i]), "{:20.2f}".format(minDict[i]), 
-                                        "{:20.2f}".format(maxDict[i]), meanLoss])
-
-                    # print("  ", i, "% propagation: \n\t",
-                    #     "mean distribution time: ", percentageDict[i], "\n\t",
-                    #     "min delay: ", minDict[i], "\n\t",
-                    #     "max delay: ", maxDict[i], "  ", "mean loss: ", meanLoss, "\n")
+                filewriter.writerow([i, "{:20.2f}".format(percentageDict[i]), "{:20.2f}".format(minDict[i]), 
+                                    "{:20.2f}".format(maxDict[i]), meanLoss])
 
 '''
 Extracts relevant stats (meanLoss, min/max distribution times of URL packs) for a single run of a simulation.
@@ -93,7 +85,8 @@ def extractFileData(filePath, percentageDict, minDict, maxDict, meanLoss):
     # Receptions has receive times from superpeers as list of values.
     urlPackEntries = {}
     urlPackReceptions = {}
-    lossList = []
+    # The loss list is legacy, it has already been shown that all messages are propagated.
+    #lossList = []
 
     logFile = open(filePath, "r")
     numPeers = extractEntities(logFile, urlPackEntries, urlPackReceptions)
@@ -101,15 +94,24 @@ def extractFileData(filePath, percentageDict, minDict, maxDict, meanLoss):
 
     for seqNum, entryTime in urlPackEntries.items():
         receiptList = urlPackReceptions[seqNum]
-        lossList.append(numPeers - len(receiptList))
+
+        if not len(receiptList) == numPeers:
+            print(seqNum, ' has not reached full propagation and will be dropped!')
+            continue
+
+        # lossList.append(numPeers - len(receiptList))
 
         for i in range(0, 101, 5):
             if not i in percentageDict:
                 percentageDict[i] = list()
 
-            extractPropagationTime(receiptList, i, numPeers, seqNum, entryTime, percentageDict)
+            if i == 0:
+                percentageDict[i].append(0)
+            else:
+                index = int(numPeers * i / 100 - 1)
+                percentageDict[i].append(receiptList[index] -  entryTime)                    
 
-    meanLoss.append(np.mean(lossList))
+    meanLoss.append(0) # meanLoss.append(np.mean(lossList))
 
 '''
 Extracts the urlPackEntries, as well as urlPackReceptions from the logFile.
@@ -142,6 +144,7 @@ def extractEntities(logFile, urlPackEntries, urlPackReceptions):
                 if m:
                     numPeers = int(m.group(1))
                 else:
+                    # This is true in the default snapshot
                     numPeers = 677
     
     return numPeers
@@ -158,7 +161,7 @@ def extractPropagationTime(receiptList, percentage, numPeers, seqNum, entryTime,
         if (len(receiptList) > index) and (index >= 0) :
             percentageDict[percentage].append(receiptList[index] -  entryTime)
         else:
-            percentageDict[percentage].append(-1)
+            print(seqNum, ' has not reached ', percentage, '% distribution.')
 
 if __name__ == '__main__':
     main()
