@@ -9,9 +9,6 @@ import re
 @click.option('--ce', default=1, help="""Enable/Disable creation of a crawler:
 0: No crawler, 1: Crawler created.""")
 
-# @click.option('--percentage', help="""percentage of botmaster peers to create,
-# when using botmaster version 1, else percentage of superpeers the botmaster contacts""", default=10)
-
 def main(path, output, ce, pb):
     peers = []
     #botmasterPeers = []
