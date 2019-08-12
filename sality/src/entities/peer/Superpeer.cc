@@ -5,8 +5,8 @@ Define_Module(Superpeer);
 void Superpeer::initialize()
 {
     // Each bot is randomly assigned a start time, at which it joined the network
-    int startTimeOffset = intrand(membershipManagementDelay);
-    cMessage *neighbourProbeInit = new cMessage(SalityConstants::nlProbeMessage);
+    startTimeOffset = intrand(membershipManagementDelay);
+    cMessage* neighbourProbeInit = new cMessage(SalityConstants::nlProbeMessage);
     scheduleAt(startTimeOffset, neighbourProbeInit);
 }
 
@@ -20,9 +20,22 @@ void Superpeer::handleMessage(cMessage *msg)
         probeNeighbours();
     } else if (strcmp(SalityConstants::urlPackProbeMessage, msg->getName()) == 0) {
         handleURLPackProbeMessage(check_and_cast<Url_pack *>(msg));
+    } else if (strcmp(SalityConstants::mmProbe, msg->getName()) == 0) {
+        handleMMProbe(msg);
     }
 
     delete msg;
+}
+
+void Superpeer::handleMMProbe(cMessage *msg) {
+    Start_Offset* offsetMessage = new Start_Offset(SalityConstants::mmReply);
+    offsetMessage->setOffset(startTimeOffset);
+    char* outputGate;
+    asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+
+    send(offsetMessage, outputGate, msg->getArrivalGate()->getIndex());
+
+    free(outputGate);
 }
 
 void Superpeer::handleURLPackProbeMessage(Url_pack *msg) {
@@ -30,11 +43,11 @@ void Superpeer::handleURLPackProbeMessage(Url_pack *msg) {
     asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
 
     if (msg->getSequenceNumber() > sequenceNumber) {
-        Url_pack *urlProbeMessage = new Url_pack(SalityConstants::urlPackProbeMessage);
+        Url_pack* urlProbeMessage = new Url_pack(SalityConstants::urlPackProbeMessage);
         urlProbeMessage->setSequenceNumber(sequenceNumber);
         forwardMessage(urlProbeMessage, outputGate, msg->getArrivalGate()->getIndex());
     } else if (msg->getSequenceNumber() < sequenceNumber) {
-        Url_pack *urlMessage = new Url_pack(SalityConstants::urlPackMessage);
+        Url_pack* urlMessage = new Url_pack(SalityConstants::urlPackMessage);
         urlMessage->setSequenceNumber(sequenceNumber);
         forwardMessage(urlMessage, outputGate, msg->getArrivalGate()->getIndex());
     }
@@ -45,7 +58,7 @@ void Superpeer::handleURLPackProbeMessage(Url_pack *msg) {
 void Superpeer::handleURLPackMessage(Url_pack *msg) {
     if (msg->getSequenceNumber() > sequenceNumber) {
         sequenceNumber = msg->getSequenceNumber();
-        EV_INFO << "peer: id=" << getIndex() << " seq=" << sequenceNumber << " t=" << simTime() << endl;
+        EV_INFO << "peer: id=" << getIndex() << " seq=" << sequenceNumber << " t=" << (int) simTime().dbl() << endl;
     } else if (msg->getSequenceNumber() < sequenceNumber) {
         Url_pack *urlMessage = new Url_pack(SalityConstants::urlPackMessage);
         urlMessage->setSequenceNumber(sequenceNumber);

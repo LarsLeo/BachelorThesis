@@ -15,7 +15,7 @@ Mainly mean, min, max distribution of URL packs are calculated.
 @click.option('--path', default='../simulations/results', help='Path to OMNeT++ results directory, that contains the log files.')
 
 def main(path):
-    # in the form {'BV' + botmasterVersion + ':' + percentageKnownPeers' : list()}
+    # holds all runs for a specific configuration
     filesDict = {}
 
     extractFiles(filesDict, path)  
@@ -31,13 +31,13 @@ def extractFiles(filesDict, path):
         
         if not isfile(filePath):
             continue
-        
-        m = re.search(r"BV(\d+)-(\d+)-\#(\d+).out", f)
+        m = re.search(r"BV(\d+)-PS(\d+)-(\d+)-\#(\d+).out", f)
         if m:
             botmasterVersion = m.group(1)
-            percentageKnownPeers = m.group(2) # If BV == 1, this is 1 for one peer
+            peerSelectVersion = m.group(2)
+            percentageKnownPeers = m.group(3) # If BV == 1, this is 1 for one peer
 
-            runName = 'BV' + botmasterVersion + '-' + percentageKnownPeers
+            runName = 'BV' + botmasterVersion + '-' + 'PS' + peerSelectVersion + '-' + percentageKnownPeers
 
             if not runName in filesDict:
                 filesDict[runName] = list()

@@ -5,6 +5,7 @@ Define_Module(Botmaster);
 void Botmaster::initialize()
 {
     version = par("version");
+    peerSelectVersion = par("peerSelectVersion");
     distributionPercentage = par("distributionPercentage");
     urlPackDelay = par("urlPackDelay");
     urlPackOffset = par("urlPackOffset");
@@ -17,13 +18,35 @@ void Botmaster::initialize()
     } else {
         calculatePeerOffset(numPeers);
     }
+
+    if (peerSelectVersion == 3) {
+        gatherPeerOffsets();
+    }
+
     scheduleNextURLPack();
+}
+
+void Botmaster::gatherPeerOffsets() {
+    cMessage* msg = new cMessage(SalityConstants::mmProbe);
+
+    for (int i = 0; i < gateSize("gate"); i += 1) {
+        sendMessageDup(msg, i);
+    }
+
+    delete msg;
 }
 
 void Botmaster::calculatePeerOffset(int numPeers) {
     int numPeersKnown = numPeers * (float(distributionPercentage) / 100);
-    int knownPeers = numPeersKnown > 0 ? numPeersKnown : 1;
-    peerOffset = numPeers / knownPeers;
+    numPeersKnown = numPeersKnown > 0 ? numPeersKnown : 1;
+
+    if (peerSelectVersion == 1) {
+        lastKnownPeerIndex = gateSize("gate$o") - 1;
+        peerOffset = numPeers / numPeersKnown;
+    } else {
+        lastKnownPeerIndex = numPeersKnown - 1;
+        peerOffset = 1;
+    }
 }
 
 void Botmaster::scheduleNextURLPack() {
@@ -54,7 +77,7 @@ void Botmaster::pushDirectly() {
     broadcastMessage(urlMessage);
 }
 
-void Botmaster::handleMessage(cMessage *msg) {
+void Botmaster::handleMessage(cMessage* msg) {
     if (strcmp(SalityConstants::newURLPackMessage, msg->getName()) == 0) {
         sequenceNumber++;
         EV_INFO << "botmaster: seq=" << sequenceNumber << " t=" << simTime() << "\n";
@@ -66,23 +89,71 @@ void Botmaster::handleMessage(cMessage *msg) {
         scheduleNextURLPack();
     } else if (strcmp(SalityConstants::urlPackProbeMessage, msg->getName()) == 0) {
         handlePeerProbe(msg);
+    } else if (strcmp(SalityConstants::mmReply, msg->getName()) == 0) {
+        addPeerOffset(check_and_cast<Start_Offset*>(msg));
     }
+
     delete msg;
 }
 
-void Botmaster::forwardMessage(cMessage *msg, int gate) {
+void Botmaster::addPeerOffset(Start_Offset* msg) {
+    int offset = msg->getOffset();
+    int peerId = msg->getArrivalGate()->getIndex();
+
+    mmOffsetTable.insert(pair<int, int>(peerId, offset));
+}
+
+void Botmaster::forwardMessage(cMessage* msg, int gate) {
     float delay = MessageDelayGenerator::getGeometricMessageDelay();
     sendDelayed(msg, delay, "gate$o", gate);
 }
 
-void Botmaster::broadcastMessage(cMessage *msg) {
-    for (int i = 0; i < gateSize("gate$o"); i += peerOffset) {
-        cMessage *dup = msg->dup();
-        dup->setTimestamp();
-        forwardMessage(dup, i);
+void Botmaster::broadcastMessage(cMessage* msg) {
+    if (peerSelectVersion < 3) {
+        for (int i = 0; i <= lastKnownPeerIndex; i += peerOffset) {
+            sendMessageDup(msg, i);
+        }
+    } else {
+        calculateNextSuperpeers();
+        for (int i = 0; i <= lastKnownPeerIndex; i++) {
+            sendMessageDup(msg, vec[i].first);
+        }
     }
 
     delete msg;
+}
+
+void Botmaster::sendMessageDup(cMessage* msg, int index) {
+    cMessage* dup = msg->dup();
+    dup->setTimestamp();
+    forwardMessage(dup, index);
+}
+
+// calculates the peers, that have the closest MM cycle and pushes them to nextPeers.
+void Botmaster::calculateNextSuperpeers() {
+    nextMMCycles.clear();
+    vec.clear();
+
+    for (it = mmOffsetTable.begin(); it != mmOffsetTable.end() ;) {
+        int peerId = it->first;
+        int offset = it->second;
+
+        int nextCycleDelay = fmod(simTime().dbl(), offset);
+        nextMMCycles.insert(pair<int, int>(peerId, nextCycleDelay));
+
+        it++;
+    }
+
+    // copy key-value pairs from the map to the vector
+    std::copy(nextMMCycles.begin(), nextMMCycles.end(), back_inserter<vector<pair<int, int>>>(vec));
+
+    // sort the vector by second value in increasing order
+    std::sort(vec.begin(), vec.end(), [](const pair<int, int>& l, const pair<int, int>& r) {
+        if (l.second != r.second)
+            return l.second < r.second;
+
+        return l.first < r.first;
+    });
 }
 
 // Used for version 2, answering probe messages

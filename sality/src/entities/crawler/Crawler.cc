@@ -10,7 +10,6 @@ void Crawler::initialize()
         case 1: initV1Crawler(); break;
     }
 
-    EV_INFO << "number peers: " << gateSize("gate") << endl;
     for (int i = 0; i < gateSize("gate"); i++) {
         possibleBotmasters.push_front(i);
     }
@@ -32,7 +31,7 @@ void Crawler::scheduleCrawlerCycle() {
 // 5. Restart at 1 until convergence.
 void Crawler::initV1Crawler() {
     for (int i = 0; i < gateSize("gate"); i++) {
-        botmasterTable.insert(std::pair<int, int>(i, 1)); ;
+        botmasterTable.insert(pair<int, int>(i, 1));
     }
 }
 

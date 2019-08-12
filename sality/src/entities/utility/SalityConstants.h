@@ -10,6 +10,8 @@ public:
     static const char * nlResponseMessage;
     static const char * newURLPackMessage;
     static const char * newCrawlerCycle;
+    static const char * mmProbe;
+    static const char * mmReply;
 };
 
 #endif

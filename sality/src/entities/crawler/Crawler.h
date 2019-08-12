@@ -7,15 +7,16 @@
 #include "../utility/MessageDelayGenerator.h"
 
 using namespace omnetpp;
+using namespace std;
 
 class Crawler : public cSimpleModule {
 protected:
     int version;
     int maxSeqNumber = 0;
     int cycleDelay = 100; // Polls all Superpeers every x seconds.
-    std::list <int> possibleBotmasters; // Table that holds all peers possibly connected to the botmaster.
-    std::map<int, int> botmasterTable; // V1 uses a map that always saves the current known seqNumber.
-    std::map<int, int>::iterator it;
+    list <int> possibleBotmasters; // Table that holds all peers possibly connected to the botmaster.
+    map<int, int> botmasterTable; // V1 uses a map that always saves the current known seqNumber.
+    map<int, int>::iterator it;
 
     void initialize();
     void handleMessage(cMessage *msg);

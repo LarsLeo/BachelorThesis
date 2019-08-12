@@ -7,3 +7,5 @@ const char * SalityConstants::nlRequestMessage = "NlReq";
 const char * SalityConstants::nlResponseMessage = "NlResp";
 const char * SalityConstants::newURLPackMessage = "NewUrlM";
 const char * SalityConstants::newCrawlerCycle = "NewCrCy";
+const char * SalityConstants::mmProbe = "MMPr";
+const char * SalityConstants::mmReply = "MMRp";
