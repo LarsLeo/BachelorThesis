@@ -5,6 +5,7 @@ Define_Module(Superpeer);
 void Superpeer::initialize()
 {
     // Each bot is randomly assigned a start time, at which it joined the network
+    crawlerEnabled = par("crawlerEnabled");
     startTimeOffset = intrand(membershipManagementDelay);
     cMessage* neighbourProbeInit = new cMessage(SalityConstants::nlProbeMessage);
     scheduleAt(startTimeOffset, neighbourProbeInit);
@@ -12,19 +13,27 @@ void Superpeer::initialize()
 
 void Superpeer::handleMessage(cMessage *msg)
 {
-    if (strcmp(SalityConstants::urlPackMessage, msg->getName()) == 0) {
+    if (strcmp(SalityConstants::urlPackMessage, msg->getName()) == 0)
         handleURLPackMessage(check_and_cast<Url_pack *>(msg));
-    } else if (strcmp(SalityConstants::nlRequestMessage, msg->getName()) == 0){
+    else if (strcmp(SalityConstants::nlRequestMessage, msg->getName()) == 0)
         handleNLRequestMessage();
-    } else if (strcmp(SalityConstants::nlProbeMessage, msg->getName()) == 0) {
+    else if (strcmp(SalityConstants::nlProbeMessage, msg->getName()) == 0)
         probeNeighbours();
-    } else if (strcmp(SalityConstants::urlPackProbeMessage, msg->getName()) == 0) {
+    else if (strcmp(SalityConstants::urlPackProbeMessage, msg->getName()) == 0)
         handleURLPackProbeMessage(check_and_cast<Url_pack *>(msg));
-    } else if (strcmp(SalityConstants::mmProbe, msg->getName()) == 0) {
+    else if (strcmp(SalityConstants::mmProbe, msg->getName()) == 0)
         handleMMProbe(msg);
-    }
+    else if (strcmp(SalityConstants::crawlerPoll, msg->getName()) == 0)
+        handleCrawlerPoll(check_and_cast<CrawlerPoll *>(msg));
 
     delete msg;
+}
+
+void Superpeer::handleCrawlerPoll(CrawlerPoll *msg) {
+    CrawlerPoll *response = new CrawlerPoll(SalityConstants::crawlerPoll);
+    response->setSequenceNumber(sequenceNumber);
+    response->setType(msg->getType());
+    retransmitMessage(msg, response);
 }
 
 void Superpeer::handleMMProbe(cMessage *msg) {
@@ -32,46 +41,46 @@ void Superpeer::handleMMProbe(cMessage *msg) {
     offsetMessage->setOffset(startTimeOffset);
     char* outputGate;
     asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
-
     send(offsetMessage, outputGate, msg->getArrivalGate()->getIndex());
-
     free(outputGate);
 }
 
 void Superpeer::handleURLPackProbeMessage(Url_pack *msg) {
-    char* outputGate;
-    asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
-
+    Url_pack* urlMessage;
     if (msg->getSequenceNumber() > sequenceNumber) {
-        Url_pack* urlProbeMessage = new Url_pack(SalityConstants::urlPackProbeMessage);
-        urlProbeMessage->setSequenceNumber(sequenceNumber);
-        forwardMessage(urlProbeMessage, outputGate, msg->getArrivalGate()->getIndex());
-    } else if (msg->getSequenceNumber() < sequenceNumber) {
-        Url_pack* urlMessage = new Url_pack(SalityConstants::urlPackMessage);
-        urlMessage->setSequenceNumber(sequenceNumber);
-        forwardMessage(urlMessage, outputGate, msg->getArrivalGate()->getIndex());
+        urlMessage = new Url_pack(SalityConstants::urlPackProbeMessage);
+    } else {
+        urlMessage = new Url_pack(SalityConstants::urlPackMessage);
     }
+    urlMessage->setSequenceNumber(sequenceNumber);
 
-    free(outputGate);
+    retransmitMessage(msg, urlMessage);
 }
 
 void Superpeer::handleURLPackMessage(Url_pack *msg) {
     if (msg->getSequenceNumber() > sequenceNumber) {
         sequenceNumber = msg->getSequenceNumber();
-        EV_INFO << "peer: id=" << getIndex() << " seq=" << sequenceNumber << " t=" << (int) simTime().dbl() << endl;
+        if (!crawlerEnabled) {
+            EV_INFO << "peer: id=" << getIndex() << " seq=" << sequenceNumber
+                    << " t=" << (int) simTime().dbl() << endl;
+        }
     } else if (msg->getSequenceNumber() < sequenceNumber) {
         Url_pack *urlMessage = new Url_pack(SalityConstants::urlPackMessage);
         urlMessage->setSequenceNumber(sequenceNumber);
-        char* outputGate;
-        asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
-        forwardMessage(urlMessage, outputGate, msg->getArrivalGate()->getIndex());
-        free(outputGate);
+        retransmitMessage(msg, urlMessage);
     }
 }
 
 void Superpeer::handleNLRequestMessage() {
     int outputGates = gateSize("outputGate");
     //TODO: get one random NL list entry and send it back
+}
+
+void Superpeer::retransmitMessage(cMessage *msg, cMessage *response) {
+    char *outputGate;
+    asprintf(&outputGate, "%s$o", msg->getArrivalGate()->getBaseName());
+    forwardMessage(response, outputGate, msg->getArrivalGate()->getIndex());
+    free(outputGate);
 }
 
 void Superpeer::forwardMessage(cMessage *msg, const char* gateName, int gate) {

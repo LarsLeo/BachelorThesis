@@ -18,7 +18,7 @@ def main(directory):
     dataframes = {}
 
     # initialize dicts
-    for i in range(5, 101, 5):
+    for i in range(2, 101, 2):
         distributionTimes[i] = list()
     distributionTimes[0] = [0]
 
@@ -32,7 +32,7 @@ def main(directory):
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
         filewriter.writerow(['Percentage', 'Propagation Time', 'Min Delay', 'Max Delay'])
         
-        for i in range(0, 101, 5):
+        for i in range(0, 101, 2):
             minDelay = min(distributionTimes[i])
             maxDelay = max(distributionTimes[i])
             meanDelay = np.mean(distributionTimes[i])  
@@ -76,7 +76,7 @@ def extractPackPropagation(seqNum, df, distributionTimes):
     print('\tTotal number of peers: ', numPeers)
     print('\tPack first seen: ', startTime)
 
-    for i in range(5, 101, 5):
+    for i in range(2, 101, 2):
         index = int(i / 100 * numPeers) - 1
 
         currentTime = datetime.datetime.strptime(df.iloc[index, 0], '%Y-%m-%d %H:%M:%S')

@@ -2,34 +2,49 @@
 
 Define_Module(Botmaster);
 
-void Botmaster::initialize()
-{
-    version = par("version");
+void Botmaster::initialize(){
+    botmasterVersion = par("botmasterVersion");
     peerSelectVersion = par("peerSelectVersion");
     distributionPercentage = par("distributionPercentage");
     urlPackDelay = par("urlPackDelay");
     urlPackOffset = par("urlPackOffset");
+    crawlerEnabled = par("crawlerEnabled");
+
+    chosenPeerPercentage = par("chosenPeerPercentage"); // Only used by peerSelectVersion == 4
 
     int numPeers = gateSize("gate");
     EV_INFO << "number peers: " << numPeers << endl;
 
-    if (version == 1) {
+    if (botmasterVersion == 1) {
         botmasterPeer = intrand(numPeers);
     } else {
         calculatePeerOffset(numPeers);
     }
 
-    if (peerSelectVersion == 3) {
+    if (peerSelectVersion >= 3) {
         gatherPeerOffsets();
     }
+
+    if (crawlerEnabled) logPeerlist();
 
     scheduleNextURLPack();
 }
 
+void Botmaster::logPeerlist() {
+    // only peerSelectVersions 2 and 4 are used in the crawler simulation
+    EV_INFO << "botmaster peers:";
+    for (int i = 0; i <= lastKnownPeerIndex; i += peerOffset) {
+        const cModule &superpeer = *gate("gate$o", i)->getPathEndGate()->getOwnerModule();
+        EV_INFO << superpeer.getId() << ",";
+    }
+    EV_INFO << endl;
+}
+
 void Botmaster::gatherPeerOffsets() {
     cMessage* msg = new cMessage(SalityConstants::mmProbe);
+    int numberPeersProbed = (peerSelectVersion == 3) ? gateSize("gate") - 1 : lastKnownPeerIndex;
 
-    for (int i = 0; i < gateSize("gate"); i += 1) {
+    for (int i = 0; i <= numberPeersProbed; i += 1) {
         sendMessageDup(msg, i);
     }
 
@@ -81,10 +96,10 @@ void Botmaster::handleMessage(cMessage* msg) {
     if (strcmp(SalityConstants::newURLPackMessage, msg->getName()) == 0) {
         sequenceNumber++;
         EV_INFO << "botmaster: seq=" << sequenceNumber << " t=" << simTime() << "\n";
-        switch (version) {
+        switch (botmasterVersion) {
             case 1: pushToBotmasterPeer(); break;
             case 2: pushWithProtocol(); break;
-            case 3: pushDirectly(); break;
+            case 3: pushDirectly();
         }
         scheduleNextURLPack();
     } else if (strcmp(SalityConstants::urlPackProbeMessage, msg->getName()) == 0) {
@@ -115,7 +130,9 @@ void Botmaster::broadcastMessage(cMessage* msg) {
         }
     } else {
         calculateNextSuperpeers();
-        for (int i = 0; i <= lastKnownPeerIndex; i++) {
+        int numberKnownPeers = (peerSelectVersion == 3) ? lastKnownPeerIndex :
+                ((int) lastKnownPeerIndex * (chosenPeerPercentage / 100.0));
+        for (int i = 0; i <= numberKnownPeers - 1; i++) {
             sendMessageDup(msg, vec[i].first);
         }
     }
@@ -156,7 +173,7 @@ void Botmaster::calculateNextSuperpeers() {
     });
 }
 
-// Used for version 2, answering probe messages
+// Used for botmasterVersion 2, answering probe messages
 void Botmaster::handlePeerProbe(cMessage *msg) {
     Url_pack *urlMessage = new Url_pack(SalityConstants::urlPackMessage);
     urlMessage->setSequenceNumber(sequenceNumber);

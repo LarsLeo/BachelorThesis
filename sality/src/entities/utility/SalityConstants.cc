@@ -9,3 +9,4 @@ const char * SalityConstants::newURLPackMessage = "NewUrlM";
 const char * SalityConstants::newCrawlerCycle = "NewCrCy";
 const char * SalityConstants::mmProbe = "MMPr";
 const char * SalityConstants::mmReply = "MMRp";
+const char * SalityConstants::crawlerPoll = "CP";

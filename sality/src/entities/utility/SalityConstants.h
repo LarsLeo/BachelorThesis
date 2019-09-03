@@ -12,6 +12,7 @@ public:
     static const char * newCrawlerCycle;
     static const char * mmProbe;
     static const char * mmReply;
+    static const char * crawlerPoll;
 };
 
 #endif

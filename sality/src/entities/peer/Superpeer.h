@@ -4,6 +4,7 @@
 #include <omnetpp.h>
 
 #include "../../messages/url_pack_m.h"
+#include "../../messages/crawlerPoll_m.h"
 #include "../../messages/start_offset_m.h"
 #include "../utility/SalityConstants.h"
 #include "../utility/MessageDelayGenerator.h"
@@ -17,14 +18,19 @@ protected:
     int startTimeOffset;
 
     virtual void initialize();
-    virtual void handleMessage(cMessage* msg);
-    virtual void forwardMessage(cMessage* msg, const char* gateName, int gate);
-    virtual void broadcastMessage(cMessage* msg);
+    virtual void handleMessage(cMessage *msg);
+    virtual void forwardMessage(cMessage *msg, const char *gateName, int gate);
+    virtual void broadcastMessage(cMessage *msg);
     void probeNeighbours();
-    void handleURLPackMessage(Url_pack* msg);
+    void retransmitMessage(cMessage *msg, cMessage *response);
+    void handleURLPackMessage(Url_pack *msg);
     void handleURLPackProbeMessage(Url_pack *msg);
     void handleNLRequestMessage();
-    void handleMMProbe(cMessage* msg);
+    void handleMMProbe(cMessage *msg);
+    void handleCrawlerPoll(CrawlerPoll *msg);
+
+    // If crawler is enabled
+    bool crawlerEnabled;
 };
 
 #endif

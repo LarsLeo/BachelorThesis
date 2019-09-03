@@ -31,13 +31,24 @@ def extractFiles(filesDict, path):
         
         if not isfile(filePath):
             continue
+
+        # strategies 1, 2, 3
         m = re.search(r"BV(\d+)-PS(\d+)-(\d+)-\#(\d+).out", f)
+        peerSelectStrategy4 = False
+
+        # strategy 4
+        if not m:
+            m = re.search(r"BV(\d+)-PS(\d+)-(\d+),(\d+)-\#(\d+).out", f)
+            peerSelectStrategy4 = True
+            
         if m:
             botmasterVersion = m.group(1)
             peerSelectVersion = m.group(2)
             percentageKnownPeers = m.group(3) # If BV == 1, this is 1 for one peer
+            chosenPeerPercentage = m.group(4) if peerSelectStrategy4 else ''
 
             runName = 'BV' + botmasterVersion + '-' + 'PS' + peerSelectVersion + '-' + percentageKnownPeers
+            runName = runName + ',' + chosenPeerPercentage if peerSelectStrategy4 else runName
 
             if not runName in filesDict:
                 filesDict[runName] = list()
@@ -54,7 +65,7 @@ def extractStatistics(filesDict):
         minDict = {}
         maxDict = {}
 
-        for i in range(0, 101, 5):
+        for i in range(0, 101, 2):
             percentageDict[i] = list()
             minDict[i] = list()
             maxDict[i] = list()
@@ -69,7 +80,7 @@ def extractStatistics(filesDict):
                                     quotechar='|', quoting=csv.QUOTE_MINIMAL)
             filewriter.writerow(['Percentage', 'Propagation Time', 'Min Delay', 'Max Delay', 'Mean Loss'])
 
-            for i in range(0, 101, 5):
+            for i in range(0, 101, 2):
                 minDict[i] = min(percentageDict[i])
                 maxDict[i] = max(percentageDict[i])
                 percentageDict[i] = np.mean(percentageDict[i])
@@ -101,7 +112,7 @@ def extractFileData(filePath, percentageDict, minDict, maxDict, meanLoss):
 
         # lossList.append(numPeers - len(receiptList))
 
-        for i in range(0, 101, 5):
+        for i in range(0, 101, 2):
             if not i in percentageDict:
                 percentageDict[i] = list()
 
