@@ -31,16 +31,19 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
 OBJS = \
-    $O/entities/crawlers/BaseCrawler.o \
-    $O/entities/crawlers/CrawlerV1.o \
-    $O/entities/peers/Botmaster.o \
-    $O/entities/peers/Superpeer.o \
+    $O/entities/botmaster/Botmaster.o \
+    $O/entities/crawler/Crawler.o \
+    $O/entities/peer/Superpeer.o \
     $O/entities/utility/MessageDelayGenerator.o \
     $O/entities/utility/SalityConstants.o \
+    $O/messages/crawlerPoll_m.o \
+    $O/messages/start_offset_m.o \
     $O/messages/url_pack_m.o
 
 # Message files
 MSGFILES = \
+    messages/crawlerPoll.msg \
+    messages/start_offset.msg \
     messages/url_pack.msg
 
 # SM files

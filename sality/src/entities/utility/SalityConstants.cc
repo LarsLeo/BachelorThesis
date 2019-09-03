@@ -1,8 +1,12 @@
 #include "SalityConstants.h"
 
-const char * SalityConstants::urlPackMessage = "URLM";
-const char * SalityConstants::urlPackProbeMessage = "URLP";
-const char * SalityConstants::nlProbeMessage = "NLP";
-const char * SalityConstants::nlRequestMessage = "NLR";
-const char * SalityConstants::nlResponseMessage = "NLM";
-const char * SalityConstants::newURLPackMessage = "nRLM";
+const char * SalityConstants::urlPackMessage = "UrlM";
+const char * SalityConstants::urlPackProbeMessage = "UrlPr";
+const char * SalityConstants::nlProbeMessage = "NlPr";
+const char * SalityConstants::nlRequestMessage = "NlReq";
+const char * SalityConstants::nlResponseMessage = "NlResp";
+const char * SalityConstants::newURLPackMessage = "NewUrlM";
+const char * SalityConstants::newCrawlerCycle = "NewCrCy";
+const char * SalityConstants::mmProbe = "MMPr";
+const char * SalityConstants::mmReply = "MMRp";
+const char * SalityConstants::crawlerPoll = "CP";
