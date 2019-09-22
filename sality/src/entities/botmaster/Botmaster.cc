@@ -12,7 +12,7 @@ void Botmaster::initialize(){
 
     chosenPeerPercentage = par("chosenPeerPercentage"); // Only used by peerSelectVersion == 4
 
-    int numPeers = gateSize("gate");
+    int numPeers = gateSize("outputGate");
     EV_INFO << "number peers: " << numPeers << endl;
 
     if (botmasterVersion == 1) {
@@ -34,7 +34,7 @@ void Botmaster::logPeerlist() {
     // only peerSelectVersions 2 and 4 are used in the crawler simulation
     EV_INFO << "botmaster peers:";
     for (int i = 0; i <= lastKnownPeerIndex; i += peerOffset) {
-        const cModule &superpeer = *gate("gate$o", i)->getPathEndGate()->getOwnerModule();
+        const cModule &superpeer = *gate("outputGate$o", i)->getPathEndGate()->getOwnerModule();
         EV_INFO << superpeer.getId() << ",";
     }
     EV_INFO << endl;
@@ -42,7 +42,7 @@ void Botmaster::logPeerlist() {
 
 void Botmaster::gatherPeerOffsets() {
     cMessage* msg = new cMessage(SalityConstants::mmProbe);
-    int numberPeersProbed = (peerSelectVersion == 3) ? gateSize("gate") - 1 : lastKnownPeerIndex;
+    int numberPeersProbed = (peerSelectVersion == 3) ? gateSize("outputGate") - 1 : lastKnownPeerIndex;
 
     for (int i = 0; i <= numberPeersProbed; i += 1) {
         sendMessageDup(msg, i);
@@ -56,7 +56,7 @@ void Botmaster::calculatePeerOffset(int numPeers) {
     numPeersKnown = numPeersKnown > 0 ? numPeersKnown : 1;
 
     if (peerSelectVersion == 1) {
-        lastKnownPeerIndex = gateSize("gate$o") - 1;
+        lastKnownPeerIndex = gateSize("outputGate$o") - 1;
         peerOffset = numPeers / numPeersKnown;
     } else {
         lastKnownPeerIndex = numPeersKnown - 1;
@@ -75,7 +75,7 @@ void Botmaster::pushToBotmasterPeer() {
     urlMessage->setSequenceNumber(sequenceNumber);
     // sends directly without delay so that the peer mimics the botmaster.
     // Still the channel delay exists, which is no influence however.
-    send(urlMessage, "gate$o", botmasterPeer);
+    send(urlMessage, "outputGate$o", botmasterPeer);
 }
 
 // Active Botmaster 1
@@ -120,7 +120,7 @@ void Botmaster::addPeerOffset(Start_Offset* msg) {
 
 void Botmaster::forwardMessage(cMessage* msg, int gate) {
     float delay = MessageDelayGenerator::getGeometricMessageDelay();
-    sendDelayed(msg, delay, "gate$o", gate);
+    sendDelayed(msg, delay, "outputGate$o", gate);
 }
 
 void Botmaster::broadcastMessage(cMessage* msg) {

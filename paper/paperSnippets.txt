@@ -1,0 +1,134 @@
+% \subsection*{Crawling based on the neighbourlist strategy}
+% This crawler holds a mapping of superpeers to their sequence numbers: $$V_{Eu} = V_{E}^{(u)} \rightarrow seq_{u}$$ where $u$ is the neighbouring bot that is potentially connected to the botmaster. Thus it  saves for each eligible bot the corresponding sequence number in $V_{Eu}$.  $V_{Eu}$ is initially set to all known peers, with each having a sequence number of 1. Additionally it holds a mapping $$V_{Eoff} = u \rightarrow seq_{u}$$ that is used to hold bots that are on the edge of being kicked from the potential botmaster candidates. This set is initialized empty. $V_{Eoff}$ is needed to circumvent kicking superpeers because of network delay. \\
+
+% The peer filtering happens by constantly iterating over $V_{Eu}$ and $V_{Eoff}$, removing bots that do not hold $seq_{max}$. It does this by iteratively sending URL probe messages to each bot in these sets as explained in section \ref{System Design} at timestamp $t_{i}$, where $i$ is the number of the iteration. For each response of a bot in the same iteration $i$, it saves the corresponding mapping in the responsible set. For the sake of the simulation, the bots always answer, since they are assumed not to be offline. Thus, the crawler is able to hold the number of superpeers that have not responded yet $r$ and wait for each response. Once all bots have responded, the filtering step is entered.\\
+
+% During the filtering step, all potential botmaster candidates are compared. Every bot in $V_{Eu}$ that does not hold the current $seq_{max}$ is moved from $V_{Eu}$ to $V_{Eoff}$. Also, every bot in $V_{Eoff}$ that does not hold $seq_{max}$ is removed. Thus, each bot that does not hold $seq_{max}$ for two crawler cycles in a row will be disregarded in future cycles. If, on the other hand a bot does not hold $seq_{max}$ in the cycle $i$, but holds it again in cycle $i + 1$, it is treated as a botmaster peer and moved back to $V_{Eu}$. This process is repeated until no changes in $V_{Eu}$ and $V_{Eoff}$ happen for $x$ cycles. \\
+
+% Algorithm \ref{CrawlerV1Alg} displays the corresponding procedure. First, hello messages are send to all superpeers in both $V_{Eu}$ and $V_{Eoff}$. An asynchronous listener awaits the responses and updates the corresponding mapping via the method listenForResponse(). This method gets called each time the crawler receives a response from a superpeer. It also updates $seq_{max}$ and a boolean value of newPackReleased globally and inserts the new (peerId, seqence number) entry into the corresponding map. After all responses have been collected the filtering cycle is entered, if the botmaster released a new URL pack as indicated by the value of newPackReleased. In the filtering cycle first $V_{Eoff}$ is iterated moving superpeers to $V_{Eu}$ or removing them depending on wether they currently hold $seq_{max}$. Afterwards $V_{Eu}$ is iterated, moving peers to $V_{Eoff}$ that do not hold $seq_{max}$. The peers that are moved from $V_{Eoff}$ to $V_{Eu}$ are iterated over twice. An alternative is to move these peers into a temporary map first and to $V_{Eu}$ after the iteration step. However since move operations take longer than iterating a map, this would be more inefficient. Afterwards the next crawler cycle is initiated at an offset in seconds. The smaller this offset is chosen, the more accurate the crawler filters. However this also means that if the botmaster uses a short delay between propagation towards individual superpeers, or network delay occurs randomly, potential candidates are more likely to be removed. Thus an offset value of 10 seconds is used, which is mostly not influenced by network delay. The time complexity of this algorithm lies in $O(\delta \cdot n)$, where $\delta$ is a factor representing the maximum delay of a superpeers response and $n : |V_{Eu} \cup V_{Eoff}|$ is the combined number of peers.
+
+% This crawler is specialised on the neighbourlist strategy, but also works for the random strategy in the same way. The difference is that for the neighbourlist strategy $V_{Eu}$ can be initialized with a predefined set of closely connected superpeers, whereas for the random strategy $V_{Eu}$ is initialized with all peers known. However doing so could potentially worsen the results, since $V_{Eu}$ will not contain all superpeers the botmaster knows, if the starting set is chosen too small. \\
+
+% \begin{algorithm}[H]
+% \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+% \SetAlgoLined
+% \Input{maps: $V_{Eu}$ and $V_{Eoff}$, time in seconds: offset, global variables: maxSeqNum, responsesLeft, newPackReleased}
+
+%  \texttt{\\}
+
+%  \For{u in $V_{Eu}$}{sendHello(u)}
+%  \For{u in $V_{Eoff}$}{sendHello(u)}
+%  responsesLeft = size($V_{Eu}$) + size($V_{Eoff}$) \\
+%  \While{responsesLeft $>$ 0}{listenForResponse()}
+  
+%  \texttt{\\}
+ 
+%  \If{newPackReleased}{
+%   \For{entry : $V_{Eoff}$}{
+%   \If{value(entry) == maxSeqNum}{$V_{Eu}$[key(entry)] = value(entry) \\}
+%   erase($V_{Eoff}$, entry)
+%  }
+%  \For{entry : $V_{Eu}$}{
+%   \If{value(entry) $<$ maxSeqNum}{
+%   $V_{Eoff}$[key(entry)] = value(entry) \\
+%   erase($V_{Eu}$, entry) \\
+%   }
+%  }
+%  }
+ 
+%  \texttt{\\}
+ 
+%  initiateNextCycle(offset)
+
+%  \caption{neighbourlistCrawler}
+%  \label{CrawlerV1Alg} 
+% \end{algorithm}
+
+
+
+% \begin{algorithm}[H]
+% \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+% \SetAlgoLined
+% \Input{maps: $V_{Eu}$, $V_{Eoff}$, hello response from peer u: $resp_{u}$, global variables: maxSeqNum, responsesLeft, newPackReleased}
+
+%  \texttt{\\}
+
+%  responsesLeft $\mathrel{-}=$ 1 \\
+%  messageSeq $\gets seq(resp_{u})$ \\
+%  \If{messageSeq $>$ maxSeqNum}{
+%   maxSeqNum = messageSeq \\
+%   newPackReleased = true
+%  }
+ 
+%  \texttt{\\}
+
+%  \uIf{type($resp_{u}$) == offlinePeer}{$V_{Eoff}$[peerId($resp_{u}$)] = messageSeq} \Else{$V_{Eu}$[peerId($resp_{u}$)] = messageSeq}
+
+%  \caption{listenForResponse}
+%  \label{CrawlerV1Alg} 
+% \end{algorithm}
+
+% \subsection*{Results}
+% Analyzing the neighbourlist crawler, it always has a recall of $100\%$. This is due to the fact that it is nearly impossible for this version to remove superpeers that the botmaster knows, since they always hold the highest sequence number first. The slim chance of a crawler pinging a superpeer in the botmasters neighbourlist that has not received a URL pack yet due to network delay, while also pinging another one that has received the pack, did not occur during the simulation.
+
+% \subsection*{Crawling based on the mixed strategy}
+% For the mixed strategy, the algorithm \ref{CrawlerV1Alg} is not sufficient. This is due to the fact, that the set of superpeers the botmaster chooses for the propagation of a URL pack changes each time he releases a new one. However the general set of peers he knows stays the same. Thus, additional measures have to be taken to consider bots that are not always the first ones to receive such a pack, even though they might be directly connected to the botmaster. For this purpose, a new set (...) has been created. \\
+
+% \begin{algorithm}[H]
+% \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+% \SetAlgoLined
+% \Input{map $V_{Eu}$ of superpeers and sequence numbers}
+% \Output{new map $V_{Eu}$ that contains all superpeers with the highest sequence number}
+
+%  \For{$u \ in \ V_{Eu}$}{$gatherResponse(u)$}
+%  $currentMax \gets 1$ \\
+%  \For{$u \ in \ V_{Eu}$}{
+%   \uIf{$seq_{u} \geq currentMax$}{$currentMax = seq_{u}$}
+%   \Else{$V_{Eu}.drop(u)$}
+%  }
+%  \For{$u \ in \ V_{Eu}$}{
+%   \If{$not \ seq_{u} == currentMax$}{$V_{Eu}.drop(u)$}
+%  }
+%  $initiateNextCycle(offset)$
+
+%  \caption{mmCycleCrawler}
+%  \label{CrawlerV2Alg} 
+% \end{algorithm}
+
+% \subsection*{Results}
+
+\begin{algorithm}[H]
+\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+\SetAlgoLined
+\Input{node $u$, botmaster superpeers $V_{B}$}
+\Output{length of shortest path from $u$ to $V_{B}$}
+
+ $depth \gets 0$ \\
+ $visited \gets list()$ \\
+ $return \ shortestPathRec(u, depth, visited, V_{B})$
+
+ \caption{$shortestPath(u, V_{B})$}
+ \label{ShortestPath}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+\SetAlgoLined
+\Input{node $u$, botmaster superpeers $V_{B}$}
+\Output{length of shortest path from $u$ to $V_{B}$}
+
+ \If{$u \in V_{B}$}{return $depth$}
+ $depth \mathrel{+}= 1$ \\
+ $visited.add(u)$ \\
+ $shortestPath \gets -1$ \\
+ \For{$v \in V_{B}$}{
+  \If{$v \notin visited$}{
+   $currentPath \gets shortestPathRec(v, depth, visited, V_{B})$ \\
+   \If{$currentPath < shortestPath \ || \ shortestPath == -1$}{$shortestPath = currentPath$}
+  }
+ }
+ return $shortestPath$
+
+ \caption{$shortestPathRec(u, depth, visited, V_{B})$}
+ \label{ShortestPathRec}
+\end{algorithm}

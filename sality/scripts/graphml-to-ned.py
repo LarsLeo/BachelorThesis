@@ -9,8 +9,10 @@ import collections
 1: Passive, 2: Active.""")
 @click.option('--ce', default=0, help="""Enable/Disable creation of a crawler:
 0: No crawler, 1: Crawler created.""")
+@click.option('--se', default=0, help="""Enable/Disable sensor.:
+0: No sensor, 1: Sensor created.""")
 
-def main(path, output, ce, pb):
+def main(path, output, ce, se, pb):
     edges = {}
 
     extractEntities(path, edges) # Extract all nodes and Edges from the Graphml file
@@ -19,7 +21,7 @@ def main(path, output, ce, pb):
 
     nedFile = open(output,"w+")
     writePreamble(nedFile, len(peers), ce)
-    writeConnections(nedFile, peers , edges, ce)
+    writeConnections(nedFile, peers , edges, ce, se)
     writePostamble(nedFile)
 
     nedFile.close()
@@ -55,7 +57,7 @@ def writePreamble(nedFile, numPeers, ce):
 
     nedFile.write(preamble)
 
-def writeConnections(nedFile, peers, edges, ce):
+def writeConnections(nedFile, peers, edges, ce, se):
     for source, targets in edges.items():
         sourceString = generateConnectionString(source, peers)
 
@@ -65,6 +67,8 @@ def writeConnections(nedFile, peers, edges, ce):
     
     if ce == 1:
         generateGodmodeConnection(nedFile, "crawler", len(peers))
+    if se == 1:
+        generateSensor(nedFile, len(peers))
     generateGodmodeConnection(nedFile, "botmaster", len(peers))
 
 def generateConnectionString(node, peers):
@@ -72,7 +76,11 @@ def generateConnectionString(node, peers):
 
 def generateGodmodeConnection(nedFile, entity, numPeers):
     for i in range(numPeers):
-        nedFile.write("\t\t%s.gate++ <--> Channel <--> peer[%d].inputGate++;\n" %(entity, i))
+        nedFile.write("\t\t%s.outputGate++ <--> Channel <--> peer[%d].inputGate++;\n" %(entity, i))
+
+def generateSensor(nedFile, numPeers):
+    for i in range(numPeers):
+        nedFile.write("\t\tpeer[%d].outputGate++ <--> Channel <--> crawler.inputGate++;\n" %(i))
 
 def writePostamble(nedFile):
     nedFile.write("}\n")

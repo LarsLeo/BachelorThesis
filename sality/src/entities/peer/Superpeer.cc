@@ -33,6 +33,7 @@ void Superpeer::handleCrawlerPoll(CrawlerPoll *msg) {
     CrawlerPoll *response = new CrawlerPoll(SalityConstants::crawlerPoll);
     response->setSequenceNumber(sequenceNumber);
     response->setType(msg->getType());
+    response->setTimestamp();
     retransmitMessage(msg, response);
 }
 
@@ -53,6 +54,7 @@ void Superpeer::handleURLPackProbeMessage(Url_pack *msg) {
         urlMessage = new Url_pack(SalityConstants::urlPackMessage);
     }
     urlMessage->setSequenceNumber(sequenceNumber);
+    urlMessage->setTimestamp();
 
     retransmitMessage(msg, urlMessage);
 }
@@ -67,6 +69,7 @@ void Superpeer::handleURLPackMessage(Url_pack *msg) {
     } else if (msg->getSequenceNumber() < sequenceNumber) {
         Url_pack *urlMessage = new Url_pack(SalityConstants::urlPackMessage);
         urlMessage->setSequenceNumber(sequenceNumber);
+        urlMessage->setTimestamp();
         retransmitMessage(msg, urlMessage);
     }
 }
@@ -106,6 +109,7 @@ void Superpeer::probeNeighbours() {
     // Each MM Cycle a bot will send its own sequence number to its neighbours.
     Url_pack *msg = new Url_pack(SalityConstants::urlPackProbeMessage);
     msg->setSequenceNumber(sequenceNumber);
+    msg->setTimestamp();
     broadcastMessage(msg);
 
     // After 40 minutes start the next Management Cycle

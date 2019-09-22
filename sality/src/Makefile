@@ -35,7 +35,6 @@ OBJS = \
     $O/entities/crawler/Crawler.o \
     $O/entities/peer/Superpeer.o \
     $O/entities/utility/MessageDelayGenerator.o \
-    $O/entities/utility/SalityConstants.o \
     $O/messages/crawlerPoll_m.o \
     $O/messages/start_offset_m.o \
     $O/messages/url_pack_m.o

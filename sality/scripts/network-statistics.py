@@ -65,7 +65,8 @@ def extractStats(outgoingEdges, ingoingEdges):
         (lambda kv: len(kv[1]) <= int(outlierPercentage / 100 * (numberNodes - 1))),
         ingoingEdges.items()))
     outlierIds = outlierDict.keys()
-    percentageOutliersInNetwork = len(outlierIds) / numberNodes * 100
+    numberOutliers = len(outlierIds)
+    percentageOutliersInNetwork = numberOutliers / numberNodes * 100
     #longestOutlierChain = extractLongestOutlierPeerChain(outlierDict, outlierIds)
     numberOutliersOnlyKnownToOutliers = 0
     for neighbours in outlierDict.values():
@@ -82,8 +83,8 @@ def extractStats(outgoingEdges, ingoingEdges):
 
     printFormattedStats(numberNodes, numberConnections, numberPossibleConnections, meanNumberConnections,
         medianNumberConnections, closelyConnectedPercentage, numberCloselyConnectedPeers, badlyConnectedPercentage,
-        numberOutlierPeers, numberRegularPeers, outlierPercentage,
-        percentageOutliersInNetwork, percentageTrueOutliers, percentageOverlap)
+        numberOutlierPeers, numberRegularPeers, outlierPercentage, percentageOutliersInNetwork, percentageTrueOutliers, 
+        percentageOverlap, numberOutliers, numberOutliersOnlyKnownToOutliers)
 
 
 def extractLongestOutlierPeerChain(outlierDict, outlierIds):
@@ -117,8 +118,8 @@ def longestOutlierRec(depth, outlierIds, outlierDict, outlier, visited):
 
 def printFormattedStats(numberNodes, numberConnections, numberPossibleConnections, meanNumberConnections,
         medianNumberConnections, closelyConnectedPercentage, numberCloselyConnectedPeers, badlyConnectedPercentage,
-        numberOutlierPeers, numberRegularPeers, outlierPercentage,
-        percentageOutliersInNetwork, percentageTrueOutliers, percentageOverlap):
+        numberOutlierPeers, numberRegularPeers, outlierPercentage, percentageOutliersInNetwork, percentageTrueOutliers,
+        percentageOverlap, numberOutliers, numberOutliersOnlyKnownToOutliers):
     print("General stats:")
     print("  Number of superpeers:", numberNodes)
     print("  Total number of connections:", numberConnections)
@@ -128,6 +129,12 @@ def printFormattedStats(numberNodes, numberConnections, numberPossibleConnection
     print("  Median number of connections: ", medianNumberConnections)
 
     print("Neighbourlist connectiveness:")
+    print("  Number closely connected (neighbourlist >= %i %% of botnet) superpeers : %.d" %
+        (closelyConnectedPercentage, numberCloselyConnectedPeers))
+    print("  Number loosely connected (neighbourlist >= %i %% of botnet) superpeers : %.d" %
+        (badlyConnectedPercentage, numberOutlierPeers))
+    print("  Number regular (%i %% > neighbourlist > %i %% of botnet) superpeers:  %.d" % 
+        (closelyConnectedPercentage, badlyConnectedPercentage, numberRegularPeers))
     print("  Percentage closely connected (neighbourlist >= %i %% of botnet) superpeers: %.2f" %
         (closelyConnectedPercentage, numberCloselyConnectedPeers / numberNodes * 100), "%")
     print("  Percentage badly connected (neighbourlist <= %i %% of botnet) superpeers:  %.2f" % 
@@ -136,6 +143,10 @@ def printFormattedStats(numberNodes, numberConnections, numberPossibleConnection
         (closelyConnectedPercentage, badlyConnectedPercentage, numberRegularPeers / numberNodes * 100), "%")
 
     print("Superpeer reputation:")
+    print("  Number outliers (known by <= %i %% of botnet): %.d" %
+        (outlierPercentage, numberOutliers))
+    print("  Number of isolated superpeers (outliers only known by outliers): %.d" %
+    (numberOutliersOnlyKnownToOutliers))
     print("  Percentage outliers (known by <= %i %% of botnet): %.2f" %
         (outlierPercentage, percentageOutliersInNetwork), "%")
     print("  Percentage of isolated superpeers (outliers only known by outliers): %.2f" %

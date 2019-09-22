@@ -11,5 +11,5 @@ simple Botmaster
         int urlPackOffset = default(1296000);
         bool crawlerEnabled = default(false);
     gates:
-        inout gate[];
+        inout outputGate[];
 }
